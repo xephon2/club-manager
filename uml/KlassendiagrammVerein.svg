@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created by diasvg.py -->
+<svg width="82.968cm" height="75.798cm" viewBox="-4.532 -16.492 78.436 59.306"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect x="57.507" y="3.427" width="20.879" height="32.032" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="57.507" y="3.427" width="20.879" height="32.032" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="57.507" y="2.427" width="2.510" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="57.507" y="2.427" width="2.510" height="1.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="57.607" y="3.177"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+verein</text>
+<rect x="-4.482" y="3.816" width="60.368" height="55.440" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-4.482" y="3.816" width="60.368" height="55.440" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="-4.482" y="2.816" width="3.280" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-4.482" y="2.816" width="3.280" height="1.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="-4.382" y="3.566"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+observer</text>
+<rect x="-4.352" y="-12.459" width="16.859" height="13.552" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-4.352" y="-12.459" width="16.859" height="13.552" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="-4.352" y="-13.459" width="2.000" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-4.352" y="-13.459" width="2.000" height="1.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="-4.252" y="-12.709"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+gui</text>
+<rect x="21.764" y="5.107" width="11.665" height="2.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="21.764" y="5.107" width="11.665" height="2.200" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="27.597" y="5.907"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;interface&gt;&gt;</text>
+<text x="27.597" y="6.857"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+SubjectVerein</text>
+<rect x="21.764" y="7.307" width="11.665" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="21.764" y="7.307" width="11.665" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="21.764" y="7.707" width="11.665" height="3.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="21.764" y="7.707" width="11.665" height="3.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="21.914" y="8.407"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++register(o:ObserverVerein)</text>
+<text x="21.914" y="9.207"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++unregister(o:ObserverVerein)</text>
+<text x="21.914" y="10.007"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++notifyObservers()</text>
+<text x="21.914" y="10.807"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++getUpdate(o:ObserverVerein)</text>
+<rect x="60.097" y="16.465" width="7.590" height="5.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="60.097" y="16.465" width="7.590" height="5.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="63.892" y="17.265"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;abstract class&gt;&gt;</text>
+<text x="63.892" y="18.215"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Vereinsmitglied</text>
+<text x="63.892" y="18.990"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Vereinsmitglied</text>
+<text x="63.892" y="19.690"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+ist eine</text>
+<text x="63.892" y="20.390"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+abstrakte</text>
+<text x="63.892" y="21.090"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Oberklasse.</text>
+<rect x="60.097" y="21.465" width="7.590" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="60.097" y="21.465" width="7.590" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="60.097" y="21.865" width="7.590" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="60.097" y="21.865" width="7.590" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="65.387" y="16.365" width="2.700" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="65.387" y="16.365" width="2.700" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" stroke-dasharray="0.30,0.30"/>
+<rect x="60.747" y="25.615" width="4.188" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="60.747" y="25.615" width="4.188" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="62.841" y="26.565"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Sportler</text>
+<rect x="60.747" y="27.015" width="4.188" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="60.747" y="27.015" width="4.188" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="60.747" y="27.415" width="4.188" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="60.747" y="27.415" width="4.188" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="66.097" y="25.615" width="4.562" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="66.097" y="25.615" width="4.562" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="68.378" y="26.565"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Vorstand</text>
+<rect x="66.097" y="27.015" width="4.562" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="66.097" y="27.015" width="4.562" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="66.097" y="27.415" width="4.562" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="66.097" y="27.415" width="4.562" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="63.892,23.227 63.892,24.340 62.841,24.340 62.841,25.565 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="64.292,23.227 63.892,22.427 63.492,23.227 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="64.292,23.227 63.892,22.427 63.492,23.227 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="63.892,23.227 63.892,24.340 68.378,24.340 68.378,25.565 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="64.292,23.227 63.892,22.427 63.492,23.227 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="64.292,23.227 63.892,22.427 63.492,23.227 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="10.195,42.868 19.626,42.868 19.626,26.308 28.398,26.308 "/>
+<polygon fill="#FFFFFF" stroke="none" stroke-width="0.100" points="29.056,26.308 28.656,26.708 28.256,26.308 28.656,25.908 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="29.056,26.308 28.656,26.708 28.256,26.308 28.656,25.908 "/>
+<rect x="-3.445" y="39.268" width="13.590" height="5.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-3.445" y="39.268" width="13.590" height="5.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="3.350" y="40.068"  fill="#000000" text-anchor="middle" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+&lt;&lt;interface&gt;&gt;</text>
+<text x="3.350" y="41.018"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+ObserverVerein</text>
+<text x="3.350" y="41.793"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+ObserverVerein</text>
+<text x="3.350" y="42.493"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+definiert das</text>
+<text x="3.350" y="43.193"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Verhalten von</text>
+<text x="3.350" y="43.893"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+SubjectVerein.</text>
+<rect x="-3.445" y="44.268" width="13.590" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-3.445" y="44.268" width="13.590" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="-3.445" y="44.668" width="13.590" height="1.800" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-3.445" y="44.668" width="13.590" height="1.800" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="-3.295" y="45.368"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++update()</text>
+<text x="-3.295" y="46.168"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++setSubject(subject:SubjectVerein)</text>
+<rect x="-3.870" y="4.362" width="22.445" height="10.500" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-3.870" y="4.362" width="22.445" height="10.500" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="7.352" y="5.312"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+XMLManager</text>
+<text x="7.352" y="6.087"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+XMLManager</text>
+<text x="7.352" y="6.787"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+observiert</text>
+<text x="7.352" y="7.487"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+SubjectVerein.</text>
+<text x="7.352" y="8.187"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Wenn ein</text>
+<text x="7.352" y="8.887"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Vereinsmitglied</text>
+<text x="7.352" y="9.587"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+erstellt,</text>
+<text x="7.352" y="10.287"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+geändert oder</text>
+<text x="7.352" y="10.987"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+gelöscht wird,</text>
+<text x="7.352" y="11.687"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+ändert</text>
+<text x="7.352" y="12.387"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+XMLManager das</text>
+<text x="7.352" y="13.087"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+entsprechende</text>
+<text x="7.352" y="13.787"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Element in einer</text>
+<text x="7.352" y="14.487"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+XML-Datei.</text>
+<rect x="-3.870" y="14.862" width="22.445" height="3.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-3.870" y="14.862" width="22.445" height="3.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="-3.720" y="15.562"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+-filename: String</text>
+<text x="-3.720" y="16.362"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+-rootelement: String</text>
+<text x="-3.720" y="17.162"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+-subject: SubjectVerein</text>
+<text x="-3.720" y="17.962"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+-rtm: RuntimeManager</text>
+<rect x="-3.870" y="18.262" width="22.445" height="4.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-3.870" y="18.262" width="22.445" height="4.200" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="-3.720" y="18.962"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++createXMLDocument()</text>
+<text x="-3.720" y="19.762"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++isVereinsmitgliedInFile(vereinsmitglied:Vereinsmitglied)</text>
+<text x="-3.720" y="20.562"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++addVereinsmitglied(vereinsmitglied:Vereinsmitglied)</text>
+<text x="-3.720" y="21.362"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++loadXMLDocument()</text>
+<text x="-3.720" y="22.162"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++update()</text>
+<rect x="11.800" y="40.197" width="13.590" height="9.800" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="11.800" y="40.197" width="13.590" height="9.800" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="18.595" y="41.147"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+TableManager</text>
+<text x="18.595" y="41.922"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+TableManager</text>
+<text x="18.595" y="42.622"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+observiert</text>
+<text x="18.595" y="43.322"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+SubjectVerein.</text>
+<text x="18.595" y="44.022"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Wenn ein</text>
+<text x="18.595" y="44.722"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Vereinsmitglied</text>
+<text x="18.595" y="45.422"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+erstellt,</text>
+<text x="18.595" y="46.122"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+geändert oder</text>
+<text x="18.595" y="46.822"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+gelöscht wird,</text>
+<text x="18.595" y="47.522"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+ändert</text>
+<text x="18.595" y="48.222"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+TableManager</text>
+<text x="18.595" y="48.922"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+eine JTable in</text>
+<text x="18.595" y="49.622"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+der Applikation.</text>
+<rect x="11.800" y="49.997" width="13.590" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="11.800" y="49.997" width="13.590" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="11.800" y="50.397" width="13.590" height="1.800" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="11.800" y="50.397" width="13.590" height="1.800" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="11.950" y="51.097"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++update()</text>
+<text x="11.950" y="51.897"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++setSubject(subject:SubjectVerein)</text>
+<line x1="20.220" y1="39.320" x2="26.885" y2="11.120" stroke="#000000" stroke-width="0.100" />
+<polygon fill="#000000" stroke="none" stroke-width="0.100" points="19.977,39.263 20.036,40.099 20.463,39.378 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="19.977,39.263 20.036,40.099 20.463,39.378 "/>
+<line x1="19.446" y1="10.243" x2="21.715" y2="9.649" stroke="#000000" stroke-width="0.100" />
+<polygon fill="#000000" stroke="none" stroke-width="0.100" points="19.383,10.001 18.673,10.446 19.510,10.485 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="19.383,10.001 18.673,10.446 19.510,10.485 "/>
+<line x1="3.960" y1="38.376" x2="6.116" y2="22.511" stroke="#000000" stroke-width="0.100" />
+<polygon fill="#000000" stroke="none" stroke-width="0.100" points="3.713,38.342 3.853,39.168 4.208,38.409 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="3.713,38.342 3.853,39.168 4.208,38.409 "/>
+<line x1="4.200" y1="46.453" x2="11.750" y2="46.319" stroke="#000000" stroke-width="0.100" />
+<polygon fill="#000000" stroke="none" stroke-width="0.100" points="4.195,46.203 3.400,46.467 4.204,46.703 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="4.195,46.203 3.400,46.467 4.204,46.703 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100" stroke-dasharray="0.40,0.40" points="63.892,16.465 63.892,8.207 33.765,8.207 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="34.397,7.957 33.597,8.207 34.397,8.457 "/>
+<rect x="-1.242" y="-11.111" width="8.200" height="2.800" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-1.242" y="-11.111" width="8.200" height="2.800" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="2.858" y="-10.161"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Application</text>
+<text x="2.858" y="-9.386"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Hauptfenster der</text>
+<text x="2.858" y="-8.686"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Applikation</text>
+<rect x="-1.242" y="-8.311" width="8.200" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-1.242" y="-8.311" width="8.200" height="1.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="-1.092" y="-7.611"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+-rtm: RuntimeManager</text>
+<rect x="-1.242" y="-7.311" width="8.200" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-1.242" y="-7.311" width="8.200" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="-1.931" y="-5.730" width="4.928" height="2.800" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-1.931" y="-5.730" width="4.928" height="2.800" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="0.533" y="-4.780"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Login</text>
+<text x="0.533" y="-4.005"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Login-Fenster</text>
+<text x="0.533" y="-3.305"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+der Applikation.</text>
+<rect x="-1.931" y="-2.930" width="4.928" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-1.931" y="-2.930" width="4.928" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="-1.931" y="-2.530" width="4.928" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="-1.931" y="-2.530" width="4.928" height="1.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="-1.781" y="-1.830"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++login()</text>
+<rect x="4.845" y="-5.657" width="5.398" height="4.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="4.845" y="-5.657" width="5.398" height="4.200" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="7.543" y="-4.707"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Messages</text>
+<text x="7.543" y="-3.932"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Liest</text>
+<text x="7.543" y="-3.232"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Oberflächentexte</text>
+<text x="7.543" y="-2.532"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+aus externen</text>
+<text x="7.543" y="-1.832"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Strings.</text>
+<rect x="4.845" y="-1.457" width="5.398" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="4.845" y="-1.457" width="5.398" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="4.845" y="-1.057" width="5.398" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="4.845" y="-1.057" width="5.398" height="1.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="4.995" y="-0.357"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++getString()</text>
+<rect x="25.151" y="-15.442" width="25.288" height="13.422" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="25.151" y="-15.442" width="25.288" height="13.422" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="25.151" y="-16.442" width="2.895" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="25.151" y="-16.442" width="2.895" height="1.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="25.251" y="-15.692"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+runtime</text>
+<rect x="26.254" y="-14.340" width="5.133" height="2.800" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="26.254" y="-14.340" width="5.133" height="2.800" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="28.820" y="-13.390"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Main</text>
+<text x="28.820" y="-12.615"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Enthält die</text>
+<text x="28.820" y="-11.915"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+main() Methode.</text>
+<rect x="26.254" y="-11.540" width="5.133" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="26.254" y="-11.540" width="5.133" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="26.254" y="-11.140" width="5.133" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="26.254" y="-11.140" width="5.133" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="34.164" y="-13.626" width="8.242" height="4.900" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="34.164" y="-13.626" width="8.242" height="4.900" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="38.286" y="-12.676"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+RuntimeManager</text>
+<text x="38.286" y="-11.901"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Enthält</text>
+<text x="38.286" y="-11.201"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+(Singleton)</text>
+<text x="38.286" y="-10.501"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Instanzen der</text>
+<text x="38.286" y="-9.801"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+zentralen</text>
+<text x="38.286" y="-9.101"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Objekte.</text>
+<rect x="34.164" y="-8.726" width="8.242" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="34.164" y="-8.726" width="8.242" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="34.164" y="-8.326" width="8.242" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="34.164" y="-8.326" width="8.242" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="58.415" y="4.076" width="4.123" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="58.415" y="4.076" width="4.123" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="60.476" y="5.026"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Adresse</text>
+<rect x="58.415" y="5.476" width="4.123" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="58.415" y="5.476" width="4.123" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="58.415" y="5.876" width="4.123" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="58.415" y="5.876" width="4.123" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<polyline fill="none" stroke="#000000" stroke-width="0.100" stroke-dasharray="0.40,0.40" points="63.892,16.314 63.892,11.520 60.476,11.520 60.476,6.661 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="60.726,7.293 60.476,6.493 60.226,7.293 "/>
+<rect x="63.408" y="4.205" width="3.158" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="63.408" y="4.205" width="3.158" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="64.987" y="5.155"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Konto</text>
+<rect x="63.408" y="5.605" width="3.158" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="63.408" y="5.605" width="3.158" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="63.408" y="6.005" width="3.158" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="63.408" y="6.005" width="3.158" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="67.558" y="4.270" width="4.623" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="67.558" y="4.270" width="4.623" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="69.869" y="5.220"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Passwort</text>
+<rect x="67.558" y="5.670" width="4.623" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="67.558" y="5.670" width="4.623" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="67.558" y="6.070" width="4.623" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="67.558" y="6.070" width="4.623" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="73.199" y="7.318" width="4.293" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="73.199" y="7.318" width="4.293" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="75.345" y="8.268"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Sportart</text>
+<rect x="73.199" y="8.718" width="4.293" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="73.199" y="8.718" width="4.293" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="73.199" y="9.118" width="4.293" height="0.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="73.199" y="9.118" width="4.293" height="0.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<rect x="29.107" y="15.358" width="24.755" height="6.300" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="29.107" y="15.358" width="24.755" height="6.300" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="41.484" y="16.308"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Verein</text>
+<text x="41.484" y="17.083"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Zentrale Klasse,</text>
+<text x="41.484" y="17.783"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+enthält alle</text>
+<text x="41.484" y="18.483"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Informationen</text>
+<text x="41.484" y="19.183"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+über den Verein</text>
+<text x="41.484" y="19.883"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+und dessen</text>
+<text x="41.484" y="20.583"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+Vereinsmitglieder</text>
+<text x="41.484" y="21.283"  fill="#000000" text-anchor="middle" font-size="0.70" font-family="sans" font-style="normal" font-weight="400">
+.</text>
+<rect x="29.107" y="21.658" width="24.755" height="5.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="29.107" y="21.658" width="24.755" height="5.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="29.257" y="22.358"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+-vereinsname: String</text>
+<text x="29.257" y="23.158"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+-observers: List</text>
+<text x="29.257" y="23.958"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+-vereinsmitglieder: vereinsmitglied</text>
+<text x="29.257" y="24.758"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+-changed: boolean</text>
+<text x="29.257" y="25.558"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+-message: String</text>
+<text x="29.257" y="26.358"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+-stagedVereinsmitglied: Vereinsmitglied</text>
+<rect x="29.107" y="26.658" width="24.755" height="10.600" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="29.107" y="26.658" width="24.755" height="10.600" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="29.257" y="27.358"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++getVerein(): Verein</text>
+<text x="29.257" y="28.158"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++setVereinsmitglied(vereinsmitglied:Vereinsmitglied)</text>
+<text x="29.257" y="28.958"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++removeVereinsmitglied(vereinsmitglied:Vereinsmitglied)</text>
+<text x="29.257" y="29.758"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++checkVereinsmitgliedByUsername(username:String): boolean</text>
+<text x="29.257" y="30.558"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++checkVereinsmitglied(vereinsmitglied:Vereinsmitglied): boolean</text>
+<text x="29.257" y="31.358"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++ausgabeVereinsmitglieder()</text>
+<text x="29.257" y="32.158"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++getVereinsmitglieder(): List</text>
+<text x="29.257" y="32.958"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++getVereinsname()</text>
+<text x="29.257" y="33.758"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++register(observer:ObserverVerein)</text>
+<text x="29.257" y="34.558"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++unregister(observer:ObserverVerein)</text>
+<text x="29.257" y="35.358"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++notifyObservers()</text>
+<text x="29.257" y="36.158"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++getUpdate(o:ObserverVerein)</text>
+<text x="29.257" y="36.958"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++getStagedVereinsmitglied(): Vereinsmitglied</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100" stroke-dasharray="0.40,0.40" points="63.892,16.314 63.892,11.585 64.987,11.585 64.987,6.791 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="65.237,7.423 64.987,6.623 64.737,7.423 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100" stroke-dasharray="0.40,0.40" points="63.892,16.314 63.892,11.617 69.869,11.617 69.869,6.856 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="70.119,7.488 69.869,6.688 69.619,7.488 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100" stroke-dasharray="0.40,0.40" points="68.137,19.365 70.443,19.365 70.443,8.418 72.814,8.418 "/>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="72.181,8.668 72.981,8.418 72.181,8.168 "/>
+<line x1="30.439" y1="11.832" x2="33.092" y2="15.309" stroke="#000000" stroke-width="0.100" />
+<polygon fill="#000000" stroke="none" stroke-width="0.100" points="30.638,11.681 29.954,11.196 30.240,11.984 "/>
+<polygon fill="none" stroke="#000000" stroke-width="0.100"  points="30.638,11.681 29.954,11.196 30.240,11.984 "/>
+</svg>
