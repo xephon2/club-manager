@@ -124,7 +124,7 @@ public class RuntimeManager implements ClubObserver {
 
         String enteredPassword = getClub().
                 getClubMemberByUserName(username).
-                getPassword();
+                getHashedPassword();
 
         String hashedPassword = null;
         hashedPassword = passwordManager.hashPassword(password);
@@ -158,7 +158,10 @@ public class RuntimeManager implements ClubObserver {
      */
     public final boolean loginUser(final String userName,
             final String password) {
-        ClubMember clubmember = getClub().getClubMemberByUserName(userName);
+        ClubMember clubmember = null;
+        if (getClub() != null) {
+            clubmember = getClub().getClubMemberByUserName(userName);
+        }
         if (clubmember != null) {
             if (matchPassword(userName, password)) {
                 setLoggedInUser(clubmember);

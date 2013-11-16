@@ -170,8 +170,11 @@ public abstract class ClubMember implements ClubMemberProperties {
      * @param plainTextPassword plain password
      */
     public final void hashAndStorePassword(final String plainTextPassword) {
-        System.out.println("RuntimeManager: " + RuntimeManager.getRuntimeManagerInstance());
-        System.out.println("PasswordManager: " + RuntimeManager.getRuntimeManagerInstance().getPasswordManager());
+        System.out.println("RuntimeManager: "
+                + RuntimeManager.getRuntimeManagerInstance());
+        System.out.println("PasswordManager: "
+                + RuntimeManager.getRuntimeManagerInstance().
+                getPasswordManager());
         String password = RuntimeManager.
                 getRuntimeManagerInstance().getPasswordManager().
                 createHashedPassword(id, plainTextPassword);
@@ -179,10 +182,10 @@ public abstract class ClubMember implements ClubMemberProperties {
     }
 
     /**
-     * Return the password of the club member.
+     * Return the hashed password of the club member.
      * @return password
      */
-    public final String getPassword() {
+    public final String getHashedPassword() {
         return hashedPassword;
     }
 }

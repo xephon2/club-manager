@@ -9,11 +9,8 @@
  * in the user guide at http://gradle.org/docs/1.8/userguide/multi_project_builds.html
  */
 
-/*
 // To declare projects as part of a multi-project build use the 'include' method
-include 'shared'
-include 'api'
-include 'services:webservice'
-*/
+include 'main'
+include 'main:club'
 
 rootProject.name = 'ClubManager'

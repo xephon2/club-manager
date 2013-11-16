@@ -36,3 +36,18 @@ task myJavadocs(type: Javadoc) {
 }
 
 ant.importBuild 'javadoc.xml'
+
+task javadocsInGradle(type: Javadoc) {
+    sourceSets {
+        main {
+            java {
+                srcDir 'src/main'
+            }
+            resources {
+                srcDir 'src/resources'
+            }
+        }
+    }
+    println sourceSets.main.output.classesDir
+}
+

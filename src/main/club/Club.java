@@ -25,9 +25,35 @@ public class Club implements ClubBehavior {
     /** Stores all club members. */
     private List<ClubMember> clubMembers = new ArrayList<ClubMember>();
 
+    /** Stores all types of clubMemberProperties. */
+    public enum clubMemberProperties {
+        /** The property type is the first name of the club member. */
+        FIRSTNAME,
+        /** The property type is the last name of the club member. */
+        LASTNAME,
+        /** The property type is the user name of the club member. */
+        USERNAME,
+        /** The property type is the street of the club member's address. */
+        STREET,
+        /** The property type is the house number
+         * of the club member's address. */
+        HOUSENUMBER,
+        /** The property type is the ZIP code of the club member's address. */
+        ZIPCODE,
+        /** The property type is the city of the club member's address. */
+        CITY,
+        /** The property type is the name of the club member's bank. */
+        BANK,
+        /** The property type is the account number
+         * of the club member's bank. */
+        BANKACCOUNTNUMBER,
+        /** The property type is the ID code of the club member's bank. */
+        BANKIDCODE
+    };
+
 
     /* *****************************************
-     * Methods
+     * Constructor
      */
 
     /**
@@ -68,12 +94,12 @@ public class Club implements ClubBehavior {
     public final void registerClubObserver(
             final main.observer.ClubObserver clubObserver) {
         if (clubObserver == null) {
-            throw new NullPointerException(Messages.getString("Messages.1")); //$NON-NLS-1$
+            throw new NullPointerException(Messages.getString("Messages.1"));
         }
         if (!clubObservers.contains(clubObserver)) {
             clubObservers.add(clubObserver);
         }
-        System.out.println(Messages.getString("Messages.2") + clubObserver); //$NON-NLS-1$
+        System.out.println(Messages.getString("Messages.2") + clubObserver);
     }
 
     /**
@@ -90,10 +116,66 @@ public class Club implements ClubBehavior {
      */
     public final void printAllClubMembersToConsole() {
         for (ClubMember mg : clubMembers) {
-            System.out.println(mg.getFirstName()
-                    + Messages.getString("Club.2") + mg.getLastName() + Messages.getString("Club.3") //$NON-NLS-1$ //$NON-NLS-2$
-                    + Messages.getString("Club.4") + mg.getId() + Messages.getString("Club.5")); //$NON-NLS-1$ //$NON-NLS-2$
+            System.out.println(
+                    mg.getFirstName() + " "
+                    + mg.getLastName() + " "
+                    + mg.getClubMemberId());
         }
+    }
+
+    /**
+     * Add properties to new club members or change
+     * properties of existing club members.
+     * @param clubMemberId ID of the club member
+     * @param propertyType type of property to be added or changed
+     * @param propertyValue value of the property
+     */
+    public final void addOrChangeClubMemberProperties(
+            final int clubMemberId,
+            final clubMemberProperties propertyType,
+            final String propertyValue) {
+        ClubMember clubmember = getClubMemberById(clubMemberId);
+        switch (propertyType) {
+            case FIRSTNAME:
+                clubmember.setFirstName(propertyValue);
+                break;
+            case LASTNAME:
+                clubmember.setLastName(propertyValue);
+                break;
+            case USERNAME:
+                clubmember.setUsername(propertyValue);
+                break;
+            case STREET:
+                clubmember.getAddress().setStreet(propertyValue);
+                break;
+            case HOUSENUMBER:
+                clubmember.getAddress().setHouseNumber(
+                        Integer.parseInt(propertyValue));
+                break;
+            case ZIPCODE:
+                clubmember.getAddress().setZipCode(
+                        Integer.parseInt(propertyValue));
+                break;
+            case CITY:
+                clubmember.getAddress().setCity(propertyValue);
+                break;
+            case BANK:
+                clubmember.getBankAccount().setBankName(propertyValue);
+                break;
+            case BANKACCOUNTNUMBER:
+                clubmember.getBankAccount().setAccountNumber(
+                        Integer.parseInt(propertyValue));
+                break;
+            case BANKIDCODE:
+                clubmember.getBankAccount().setBankIdCode(
+                        Integer.parseInt(propertyValue));
+                break;
+            default:
+                System.out.println("Something is wrong"
+                        + "in addOrChangeProperties");
+        }
+        notifyObservers();
+        printAllClubMembersToConsole();
     }
 
     /**
@@ -133,7 +215,7 @@ public class Club implements ClubBehavior {
      */
     public final ClubMember getClubMemberById(final int clubMemberId) {
         for (ClubMember clubMember : clubMembers) {
-            if (clubMember.getId() == clubMemberId) {
+            if (clubMember.getClubMemberId() == clubMemberId) {
                 return clubMember;
             }
         }

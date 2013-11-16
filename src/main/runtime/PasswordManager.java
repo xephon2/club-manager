@@ -25,6 +25,9 @@ public class PasswordManager extends Properties {
     /** Stores the RuntimeManager. */
     private RuntimeManager runtimeManager;
 
+    /** Stores theSHA value. */
+    private final byte SHA = 40;
+
 
     /* *****************************************
      * Constructor
@@ -45,13 +48,12 @@ public class PasswordManager extends Properties {
 
     /**
      * Create a hash of the user's password using the hasPasswort() method.
-     * @param clubMemberId The mitgliedsnummer of the user.
+     * @param clubMemberId The id of the user.
      * @param plainTextPassword The (not hashed) password
      * @return hashed password
      */
     public final String createHashedPassword(
             final int clubMemberId, final String plainTextPassword) {
-
         String hashedPassword = hashPassword(plainTextPassword);
 
         setProperty(Integer.toString(clubMemberId), hashedPassword);
@@ -78,7 +80,7 @@ public class PasswordManager extends Properties {
         MessageDigest md;
         try {
             md = MessageDigest.getInstance("SHA-1");
-            byte[] shaHash = new byte[40];
+            byte[] shaHash = new byte[SHA];
             md.update(plainTextPassword.getBytes("iso-8859-1"),
                     0, plainTextPassword.length());
             shaHash = md.digest();
@@ -96,6 +98,7 @@ public class PasswordManager extends Properties {
      * @return hashed password
      */
     public final String fetchPassword(final String userName) {
+        System.out.println("fetchPassword()");
         try {
             loadFromXML(new FileInputStream(new File(
                     runtimeManager.getClub().getClubName() + "_password.xml")));

@@ -149,8 +149,8 @@ public class Login extends JFrame {
         frame.getContentPane().add(userNameTextField, userNameField);
         userNameTextField.setColumns(textFieldColumns);
 
-        JLabel passwordMessage =
-                new JLabel(main.utility.Messages.getString("Messages.Password"));
+        JLabel passwordMessage
+        = new JLabel(main.utility.Messages.getString("Messages.Password"));
         GridBagConstraints gridBagConstraintPasswordMessage
         = new GridBagConstraints();
         gridBagConstraintPasswordMessage.anchor = GridBagConstraints.EAST;
@@ -177,7 +177,8 @@ public class Login extends JFrame {
         frame.getContentPane().add(passwordTextField, passwordField);
         passwordTextField.setColumns(textFieldColumns);
 
-        JButton btnOk = new JButton(main.utility.Messages.getString("Messages.OK"));
+        JButton btnOk
+        = new JButton(main.utility.Messages.getString("Messages.OK"));
         GridBagConstraints okButtonField = new GridBagConstraints();
         okButtonField.gridx = 1;
         okButtonField.gridy = buttonGridColumn;

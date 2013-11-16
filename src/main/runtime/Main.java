@@ -25,8 +25,8 @@ public class Main {
     private static RuntimeManager runtimeManager
     = RuntimeManager.getRuntimeManagerInstance();
 
-    /** Stores an instance of the Login window. */
-    private static Login login;
+    /** Stores the thread sleeptime. */
+    private static final int SLEEP_TIME = 500;
 
     /**
      * Start the application.
@@ -38,7 +38,7 @@ public class Main {
     public static void main(final String[] args) throws
     ParserConfigurationException, SAXException, IOException {
 
-        Club club = new Club("komischerhaufen");
+        Club club = new Club("myclub");
 
         if (runtimeManager != null) {
             System.out.println("RuntimeManager established.");
@@ -100,7 +100,7 @@ public class Main {
         // Ask every 500ms if someone is logged in.
         while (runtimeManager.getLoggedInUser() == null) {
             try {
-                Thread.sleep(500);
+                Thread.sleep(SLEEP_TIME);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

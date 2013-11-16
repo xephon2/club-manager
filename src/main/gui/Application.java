@@ -13,7 +13,10 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
+import main.club.Club;
 import main.club.ClubMember;
+import main.club.ClubMemberProperties;
+import main.club.Club.clubMemberProperties;
 import main.runtime.RuntimeManager;
 import net.miginfocom.swing.MigLayout;
 
@@ -136,7 +139,6 @@ public class Application {
                 numberOfColumns);
         table = new JTable(tableModel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setBounds(100, 100, 600, 300);
         frame.add(new JScrollPane(table));
         frame.setVisible(true);
 
@@ -144,7 +146,7 @@ public class Application {
         for (ClubMember clubMember : runtimeManager.
                 getClub().getClubMembers()) {
             tableModel.insertRow(i, new Object[]{
-                    clubMember.getId(),
+                    clubMember.getClubMemberId(),
                     clubMember.getFirstName(),
                     clubMember.getLastName(),
                     clubMember.getUsername()});
@@ -152,10 +154,39 @@ public class Application {
 
         tableModel.addTableModelListener(new TableModelListener() {
             @Override
-            public void tableChanged(final TableModelEvent arg0) {
-                System.out.println(arg0.getFirstRow());
-                System.out.println(arg0.getColumn());
-                getTableCellValue(arg0.getFirstRow(), arg0.getColumn());
+            public void tableChanged(final TableModelEvent tableCellEvent) {
+                int rowIndexOfChangedCell = tableCellEvent.getFirstRow();
+                int columnIndexOfChangedCell = tableCellEvent.getColumn();
+
+                /* If the changed cell is in the first column
+                 * (club member ID), create a new club member. */
+                if (tableCellEvent.getColumn() == 0) {
+                    try {
+                        int tableClubMemberId = convertStringToInt(
+                                getTableCellValue(rowIndexOfChangedCell, 0));
+                        createNewClubMemberWithTableCellId(tableClubMemberId);
+                    } catch (NullPointerException e) {
+                        System.out.println("Club member ID is invalid");
+                    }
+                } else {
+                    /* If the changed cell is not in the first column
+                     * (club member ID), try to add or change the
+                     * properties of an existing club member. */
+                    try {
+                        int tableClubMemberId = convertStringToInt(
+                                getTableCellValue(rowIndexOfChangedCell, 0));
+                        String propertyValue = getTableCellValue(
+                                rowIndexOfChangedCell,
+                                columnIndexOfChangedCell);
+                        addOrChangeClubMemberPropertiesWhenCellValueChange(
+                                tableClubMemberId,
+                                columnIndexOfChangedCell,
+                                propertyValue);
+                    } catch (NullPointerException e) {
+                        System.out.println("Property of club member"
+                                + "cannot be changed.");
+                    }
+                }
             }
         });
     }
@@ -164,17 +195,18 @@ public class Application {
      * Get the value of a changed cell.
      * @param rowIndex row index of the table
      * @param colIndex column index of the table
+     * @return table cell value
      */
-    public final void getTableCellValue(
+    public final String getTableCellValue(
             final int rowIndex, final int colIndex) {
         String value = table.getModel().getValueAt(
-                rowIndex, colIndex).toString();
-        System.out.println(value);
-        }
+            rowIndex, colIndex).toString();
+        return value;
+    }
 
     /**
      * Set the value of a table cell.
-     * @param obj ?
+     * @param obj table cell
      * @param rowIndex row index of the table
      * @param colIndex column index of the table
      */
@@ -191,5 +223,59 @@ public class Application {
     private void exitApplication() {
         frame.dispose();
         System.exit(0);
+    }
+
+    /**
+     * Convert a String to an Integer.
+     * @param string input string
+     * @return output integer
+     */
+    private int convertStringToInt(final String string) {
+        return Integer.parseInt(string);
+    }
+
+    /**
+     * Create a new clubMember, when the ID cell of the table is filled.
+     * @param clubMemberId clubMemberId from table cell
+     */
+    private void createNewClubMemberWithTableCellId(final int clubMemberId) {
+        ClubMember newClubMember = new ClubMember(clubMemberId) { };
+        runtimeManager.getClub().addClubMember(newClubMember);
+    }
+
+    /**
+     * Use the index of the table cell to define the property type.
+     * Use the club member ID to get the club member and add or change
+     * the gathered property to propertyValue.
+     * @param clubMemberId ID of the club member
+     * @param tableColumn column of the changed table cell
+     * @param propertyValue value of the new property
+     */
+    private void addOrChangeClubMemberPropertiesWhenCellValueChange(
+            final int clubMemberId,
+            final int tableColumn,
+            final String propertyValue) {
+        Club club = runtimeManager.getClub();
+
+        clubMemberProperties clubMemberProperty;
+        switch (tableColumn) {
+            case 1:
+                clubMemberProperty = clubMemberProperties.FIRSTNAME;
+                break;
+            case 2:
+                clubMemberProperty = clubMemberProperties.LASTNAME;
+                break;
+            case 3:
+                clubMemberProperty = clubMemberProperties.USERNAME;
+                break;
+            default:
+                clubMemberProperty = null;
+                break;
+        }
+
+        club.addOrChangeClubMemberProperties(
+                clubMemberId,
+                clubMemberProperty,
+                propertyValue);
     }
 }

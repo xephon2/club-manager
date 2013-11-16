@@ -7,12 +7,6 @@ package main.club;
 public interface ClubMemberProperties {
 
     /**
-     * Return the club member id.
-     * @return club member id
-     */
-    int getId();
-
-    /**
      * Set the club member id.
      * @param id club member id
      */
