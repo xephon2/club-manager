@@ -1,3 +1,7 @@
+# ignore everything under the 'bin' folder
+bin/
 *.html
 *.class
 *.dia
+.classpath
+.project
