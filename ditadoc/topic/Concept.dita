@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="introduction">
+ <title>Introduction</title>
+ <shortdesc>Welcome to the Club Manager TEST documentation. This documentation explains the
+  structure, data flow and class design of the application.</shortdesc>
+ <conbody>
+  <p/>
+ </conbody>
+</concept>

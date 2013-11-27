@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="javadoc">
-    <target name="javadoc">
-        <javadoc access="public" author="true" classpath="/usr/share/eclipse/plugins/org.hamcrest.core_1.3.0.v201303031735.jar:/usr/share/eclipse/plugins/org.junit_4.11.0.v201303080030/junit.jar:../miglayout15-swing.jar" destdir="../doc" doctitle="Club Manager Documentation" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="utility,gui,club,observer,runtime" source="1.7" sourcepath="../src" splitindex="true" use="true" version="true"/>
-    </target>
-</project>

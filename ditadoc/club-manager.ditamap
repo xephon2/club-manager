@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<bookmap>
+    <booktitle>
+        <mainbooktitle>Club Manager</mainbooktitle>
+    </booktitle>
+    <frontmatter>
+        <topicref href="topic/Concept.dita"/>
+    </frontmatter>
+    <chapter href="topic/technologies.dita"/>
+    <chapter href="topic/classes.dita"/>
+</bookmap>

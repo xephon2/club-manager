@@ -1,5 +1,7 @@
-# ignore everything under the 'bin' folder
-bin/
+bin/**
+out/**
+temp/**
+*.jar
 *.html
 *.class
 *.dia

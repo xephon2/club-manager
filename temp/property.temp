@@ -1,0 +1,7 @@
+#Fri Nov 22 13:43:50 CET 2013
+dita.temp.dir=/home/stefan/workspace/ClubManager/temp/
+args.input=/home/stefan/workspace/ClubManager/ditadoc/club-manager.ditamap
+transtype=xhtml
+output.dir=/home/stefan/workspace/ClubManager/out2/
+dita.dir=/home/stefan/workspace/ClubManager/DITA-OT
+basedir=/home/stefan/workspace/ClubManager/DITA-OT

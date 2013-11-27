@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="Club-Manager" basedir="." >
+    
+    <mkdir dir="${reports.dir}/javadoc"/>
+    <property name="dita.dir" location="../doc/DITA-OT/"/>
+    <property name="dita.map" location="../ditadoc/club-manager.ditamap" />
+
+    <target name="ditadoc">
+        <ant antfile="${dita.dir}${file.separator}build.xml">
+            <property name="debug" value="yes"/>
+            <property name="args.input" value="${dita.map}"/>
+            <property name="transtype" value="xhtml"/>
+        </ant>
+    </target> 
+
+</project>

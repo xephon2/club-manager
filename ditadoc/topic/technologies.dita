@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_fql_5vy_fm">
+  <title>Used Technologies</title>
+  <body>
+    <p>As mentioned before, this application has been created for a study course. The goal of this
+      application is not to provide any useful functionality, but to get in touch with new
+      technologies and to learn how to use and integrate them into a real project. Because I am a
+      Technical Writer, my focus is on creating a good documentation and learning which technologies
+      can be helpful to achieve that.</p>
+    <section>
+      <title>Integrated Development Environment</title>
+      <ul>
+        <li>Eclipse</li>
+      </ul>
+    </section>
+    <section>
+      <title>Software Metrics</title>
+      <ul id="ul_ln5_1yy_fm">
+        <li>JDepend</li>
+        <li>CheckStyle</li>
+      </ul>
+    </section>
+    <section>
+      <title>Distributed Version Control System</title>
+      <p>Git <xref href="https://github.com/xephon2/club-manager" format="html" scope="external"
+          >https://github.com/xephon2/club-manager</xref>
+      </p>
+    </section>
+    <section>
+      <title>Continuous Integration</title>
+      <ul id="ul_uwf_fyy_fm">
+        <li>Gradle</li>
+        <li>Ant</li>
+      </ul>
+    </section>
+    <section>
+      <title>Documentation</title>
+      <ul id="ul_gh5_gyy_fm">
+        <li>oXygen XML</li>
+        <li>Graphviz</li>
+        <li>UMLGraph</li>
+      </ul>
+    </section>
+  </body>
+</topic>
