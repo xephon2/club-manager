@@ -59,11 +59,6 @@ task cloneDitaOt(type: GitClone) {
     uri = 'git://github.com/dita-ot/dita-ot.git'
 }
 
-task cloneClubManager(type: GitClone) {
-    destinationPath = 'repositories/club-manager'
-    uri = 'git@github.com:xephon2/club-manager.git'
-}
-
 task cloneUmlGraph(type: GitClone) {
     destinationPath = 'repositories/uml-graph'
     uri = 'https://github.com/dspinellis/UMLGraph.git'

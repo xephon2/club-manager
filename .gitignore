@@ -1,5 +1,7 @@
 bin/**
+build/**
 out/**
+repositories/**/**
 temp/**
 *.jar
 *.html
@@ -7,3 +9,4 @@ temp/**
 *.dia
 .classpath
 .project
+.gradle/**
