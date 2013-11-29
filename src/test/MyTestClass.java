@@ -3,13 +3,12 @@
  */
 package test;
 
-import static org.junit.Assert.*;
-import main.club.ClubMember;
-import main.runtime.RuntimeManager;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import main.java.club.Club;
+import main.java.club.ClubMember;
+import main.java.runtime.RuntimeManager;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -20,7 +19,7 @@ import org.junit.Test;
 public class MyTestClass {
 
     static RuntimeManager runtimeManager;
-    static ClubMember clubMember;
+    static Club club;
 
     /**
      * @throws java.lang.Exception
@@ -29,14 +28,17 @@ public class MyTestClass {
     public static void setUpBeforeClass() throws Exception {
         System.out.println("Create RuntimeManager...");
         runtimeManager = new RuntimeManager();
-        clubMember = new ClubMember(0) {};
+        System.out.println("Create new Club...");
+        club = new Club(null) {};
     }
 
     /**
      * Test creating new ClubMembers.
      */
-    public final void testClubMember() {
-        assertEquals(null, clubMember.getClubMemberId());
+    @Test
+    public final void testCreateClubMember() {
+        ClubMember clubMember1 = new ClubMember(1) {};
+        assertEquals(1, clubMember1.getClubMemberId());
     }
 
     /**

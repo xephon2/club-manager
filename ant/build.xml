@@ -6,7 +6,8 @@
     <property name="dita.map" location="../ditadoc/club-manager.ditamap" />
 
     <target name="ditadoc">
-        <ant antfile="${dita.dir}${file.separator}build.xml">
+        <!--<ant antfile="${dita.dir}${file.separator}build.xml">-->
+    	<ant antfile="../ant/build.xml">
             <property name="debug" value="yes"/>
             <property name="args.input" value="${dita.map}"/>
             <property name="transtype" value="xhtml"/>
