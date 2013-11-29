@@ -91,7 +91,6 @@ public class PasswordManager extends Properties {
         return null;
     }
 
-
     /**
      * Load a hashed password from XML file.
      * @param userName user name

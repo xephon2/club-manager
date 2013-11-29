@@ -30,17 +30,6 @@ public class RuntimeManager implements ClubObserver {
     private ClubMember loggedInUser;
 
 
-    /* *****************************************
-     * Constructor
-     */
-
-//    /**
-//     * Create a new RuntimeManager and a new PasswordManager.
-//     */
-//    public RuntimeManager() {
-//        this.passwordManager = new PasswordManager(runtimeManager);
-//    }
-
 
     /* *****************************************
      * Getter and Setter
@@ -114,7 +103,7 @@ public class RuntimeManager implements ClubObserver {
     }
 
     /**
-     * Check, if the user's password matches to the stored passwort hash.
+     * Check, if the user's password matches to the stored password hash.
      * @param username The user name of the user
      * @param password The password of the user
      * @return Return TRUE, if the password is correct, otherwise return FALSE.
@@ -129,17 +118,22 @@ public class RuntimeManager implements ClubObserver {
         String hashedPassword = null;
         hashedPassword = passwordManager.hashPassword(password);
 
-        if (hashedPassword != null) {
-            System.out.println("hashedPassword is null");
-        }
-
-        if (enteredPassword.equals(hashedPassword)) {
-            System.out.println("Passwort stimmt");
-            return true;
+        if (this.passwordManager != null) {
+            if (hashedPassword != null) {
+                System.out.println("hashedPassword is null");
+            }
+    
+            if (enteredPassword.equals(hashedPassword)) {
+                System.out.println("Passwort stimmt");
+                return true;
+            } else {
+                System.out.println("Passwort stimmt nicht");
+                return false;
+            }
         } else {
-            System.out.println("Passwort stimmt nicht");
-            return false;
+            System.out.println("Password Manager does not exist!");
         }
+        return false;
     }
 
     /**

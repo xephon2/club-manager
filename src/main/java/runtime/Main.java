@@ -4,10 +4,8 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import main.java.club.Athlete;
 import main.java.club.Club;
 import main.java.club.ClubMember;
-import main.java.club.President;
 import main.java.gui.Application;
 import main.java.gui.Login;
 import main.java.observer.TableManager;
@@ -39,7 +37,7 @@ public class Main {
     ParserConfigurationException, SAXException, IOException {
 
         Club club = new Club("myclub");
-
+        
         if (runtimeManager != null) {
             System.out.println("RuntimeManager established.");
         } else {
@@ -63,6 +61,11 @@ public class Main {
         }
 
         xman.update();
+        
+        ClubMember dummy = new ClubMember(333) {};
+        dummy.setUsername("dummy");
+        dummy.hashAndStorePassword("dummy");
+        club.addClubMember(dummy);
 
 
         /**
