@@ -15,6 +15,7 @@ import javax.xml.transform.stream.StreamResult;
 import main.java.club.Address;
 import main.java.club.BankAccount;
 import main.java.club.ClubMember;
+import main.java.observer.ClubObserver;
 import main.java.runtime.RuntimeManager;
 
 import org.w3c.dom.Document;
@@ -264,51 +265,51 @@ public class XMLManager implements ClubObserver {
             System.out.println("xmlFilename: " + xmlFilename);
 
             Document document = builder.parse(xmlFilename);
-            
+
             if (document != null) {
-            
+
                 System.out.println("document: " + document);
-                
+
                 Node elementRoot = document.getFirstChild();
-                
+
                 System.out.println("elementRoot: " + elementRoot);
-    
+
                 Element xmlClubMember = document.createElement(
                         xmlClubMemberElementName);
                 elementRoot.appendChild(xmlClubMember);
-    
+
                 System.out.println("xmlClubMember: " + xmlClubMember);
-                
+
                 Element xmlClubMemberId = document.createElement(
                         xmlClubMemberIdElementName);
                 xmlClubMemberId.appendChild(document.createTextNode(clubMemberId));
                 xmlClubMember.appendChild(xmlClubMemberId);
-    
+
                 Element xmlFirstName = document.createElement(
                         xmlClubMemberFirstNameElementName);
                 xmlFirstName.appendChild(document.createTextNode(firstName));
                 xmlClubMember.appendChild(xmlFirstName);
-    
+
                 Element xmlLastName = document.createElement(
                         xmlClubMemberLastNameElementName);
                 xmlLastName.appendChild(document.createTextNode(lastName));
                 xmlClubMember.appendChild(xmlLastName);
-    
+
                 Element xmlUserName = document.createElement(
                         xmlClubMemberUserNameElementName);
                 xmlUserName.appendChild(document.createTextNode(userName));
                 xmlClubMember.appendChild(xmlUserName);
-    
+
                 Element xmlPassword = document.createElement(
                         xmlClubMemberPasswordElementName);
                 xmlPassword.appendChild(document.createTextNode(password));
                 xmlClubMember.appendChild(xmlPassword);
-    
+
                 Element xmlStreet = document.createElement(
                         xmlClubMemberStreetElementName);
                 xmlStreet.appendChild(document.createTextNode(street));
                 xmlClubMember.appendChild(xmlStreet);
-    
+
                 Element xmlHouseNumber = document.createElement(
                         xmlClubMemberHouseNumberElementName);
                 xmlHouseNumber.appendChild(document.createTextNode(houseNumber));
@@ -420,7 +421,7 @@ public class XMLManager implements ClubObserver {
                 getClub().getClubMembers()) {
 //            addXMLClubMember(clubMember);
             if (isClubMemberInFile(clubMember)) {
-                // Compare properties
+                // TODO Compare properties
             } else {
                 addXMLClubMember(clubMember);
             }

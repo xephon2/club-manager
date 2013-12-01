@@ -20,7 +20,8 @@ public class Club implements ClubBehavior {
     private String clubName;
 
     /** Stores all object references to objects that observe the club. */
-    private List<main.java.observer.ClubObserver> clubObservers = new ArrayList<>();
+    private List<main.java.observer.ClubObserver>
+    clubObservers = new ArrayList<>();
 
     /** Stores all club members. */
     private List<ClubMember> clubMembers = new ArrayList<ClubMember>();
@@ -244,5 +245,5 @@ public class Club implements ClubBehavior {
      */
     public final List<ClubMember> getClubMembers() {
         return clubMembers;
-    }   
+    }
 }

@@ -20,8 +20,7 @@ import org.xml.sax.SAXException;
 public class Main {
 
     /** Stores an instance of the RuntimeManager. */
-    private static RuntimeManager runtimeManager
-    = RuntimeManager.getRuntimeManagerInstance();
+    private static RuntimeManager runtimeManager;
 
     /** Stores the thread sleeptime. */
     private static final int SLEEP_TIME = 500;
@@ -36,8 +35,10 @@ public class Main {
     public static void main(final String[] args) throws
     ParserConfigurationException, SAXException, IOException {
 
+        runtimeManager
+        = RuntimeManager.getRuntimeManagerInstance();
         Club club = new Club("myclub");
-        
+
         if (runtimeManager != null) {
             System.out.println("RuntimeManager established.");
         } else {
@@ -47,21 +48,21 @@ public class Main {
         runtimeManager.setClub(club);
         runtimeManager.addPasswordManager(new PasswordManager(runtimeManager));
 
-        XMLManager xman = new XMLManager(runtimeManager, "clubmembers");
+//        XMLManager xman = new XMLManager(runtimeManager, "clubmembers");
         TableManager tman = new TableManager();
 
-        if (xman != null) {
-            System.out.println("XMLManager established.");
-            club.registerClubObserver(xman);
-        }
+//        if (xman != null) {
+//            System.out.println("XMLManager established.");
+//            club.registerClubObserver(xman);
+//        }
 
         if (tman != null) {
             System.out.println("Tablemanager established.");
             club.registerClubObserver(tman);
         }
 
-        xman.update();
-        
+//        xman.update();
+
         ClubMember dummy = new ClubMember(333) {};
         dummy.setUsername("dummy");
         dummy.hashAndStorePassword("dummy");

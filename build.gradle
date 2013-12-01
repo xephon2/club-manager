@@ -12,6 +12,12 @@ apply plugin: 'github-pages'
 
 version='0.1-ALPHA'
 
+sourceSets {
+    main {
+        compileClasspath += fileTree(dir: './lib', includes: ['**/*.jar'])
+    }
+}
+
 task setupClubManager
 
 

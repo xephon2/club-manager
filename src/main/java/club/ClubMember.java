@@ -161,7 +161,7 @@ public abstract class ClubMember implements ClubMemberProperties {
      * Set the club of the club member.
      * @param clubMemberClub club
      */
-    public final void setVerein(final Club clubMemberClub) {
+    public final void setClub(final Club clubMemberClub) {
         this.club = clubMemberClub;
     }
 

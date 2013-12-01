@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<project name="ClubManager" default="main" basedir=".">
+	
+    <property name="src.dir" location="src" description="Set the source directory."/>
+    <property name="build.dir" location="bin" description="Set the build directory."/>
+    <property name="jar.dir" location="jar" description="Set the jar directory."/>
+    <property name="test.dir" location="src" description="Set the test directory variable."/>
+    <property name="doc.dir" location="doc" description="Set the documentation directory variable."/>
+    <property name="test.report.dir" location="testreport" description="Set the test report directory."/>
+    <property name="dita.dir" location="dita/"/>
+    <property name="dita.ot.dir" location="repositories/dita-ot/"/>
+	<property name="dita.out.dir" location="doc/ditadoc/" />
+    <property name="dita.map" location="ditadoc/club-manager.ditamap" />
+	<property name="lib.dir" value="lib"/>
+
+	
+    <path id="junit.class.path" description="Define the classpath which includes the junit.jar and the classes after compiling">
+        <pathelement location="${lib.dir}/hamcrest-core-1.3.jar" />    <!-- Additional JUnit lib -->
+    	<pathelement location="${lib.dir}/junit-4.11.jar" />
+        <pathelement location="${build.dir}" />
+    </path>
+	
+	<path id="lib.path" description="Library classpath">
+	    <pathelement location="${lib.dir}/miglayout15-swing.jar"/>
+	    <pathelement location="${lib.dir}/miglayout-src.zip"/>
+	</path>
+
+
+    <target name="clean" description="Delete old build directories.">
+        <delete dir="${build.dir}" />
+        <delete dir="${test.report.dir}" />
+        <delete dir="${doc.dir}" />
+    	<delete dir="${jar.dir}" />
+    </target>
+	
+
+    <target name="makedir" description="Create new build directories.">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${test.report.dir}" />
+        <mkdir dir="${doc.dir}/javadoc" />
+        <mkdir dir="${doc.dir}/ditadoc" />
+    	<mkdir dir="${jar.dir}"/>
+    </target>
+	
+
+    <target name="compile" depends="clean, makedir" description="Compile Java code.">
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="true">
+        	<classpath refid="lib.path" />
+            <classpath refid="junit.class.path" />
+        </javac>
+    </target>
+	
+	
+    <target name="junit" depends="clean, makedir, compile" description="Run JUnit tests.">
+        <junit printsummary="on" fork="true" haltonfailure="yes">
+            <classpath refid="junit.class.path" />
+            <formatter type="xml" />
+            <batchtest todir="${test.report.dir}">
+                <fileset dir="${src.dir}">
+                    <include name="**/*Test*.java" />
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+	
+
+	<target name="jar" depends="clean, makedir, compile" description="Create JAR">
+		<jar destfile="${jar.dir}/ClubManager.jar" basedir="${build.dir}/main"/>
+	</target>
+	
+	
+    <target name="main" depends="compile, junit, jar, javadoc" description="Build the whole project.">
+        <description>Main target</description>
+    </target>
+	
+	
+    <target name="javadoc" description="Create Javadoc documentation.">
+        <javadoc
+        	access="public"
+        	author="true"
+        	classpath="lib/hamcrest-core-1.3.jar:lib/junit-4.11.jar:lib/miglayout15-swing.jar:lib/miglayout-src.zip"
+        	doctitle="Club Manager Documentation"
+        	nodeprecated="false"
+        	nodeprecatedlist="false"
+        	noindex="false"
+        	nonavbar="false"
+        	notree="false"
+        	packagenames="test,main.java.gui,main.java.club,main.java.runtime,main.java.observer,main.java.utility"
+        	source="1.7"
+        	sourcepath="${src.dir}"
+    		splitindex="true"
+        	use="true"
+        	version="true"
+        	destdir="doc/javadoc">
+        </javadoc>
+    </target>
+	
+	 
+	<target name="ditadoc" description="Generate DITA documentation">
+	    <ant antfile="${dita.ot.dir}${file.separator}build.xml">
+	        <property name="args.input" location="${dita.dir}"/>
+	        <property name="output.dir" location="${dita.out.dir}"/>
+	        <property name="transtype" value="xhtml"/>
+	    </ant>
+	</target>
+
+</project> 
