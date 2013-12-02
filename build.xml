@@ -26,7 +26,7 @@
 	</path>
 
 
-    <target name="clean" description="Delete old build directories.">
+    <target name="cleandir" description="Delete old build directories.">
         <delete dir="${build.dir}" />
         <delete dir="${test.report.dir}" />
         <delete dir="${doc.dir}" />
@@ -43,7 +43,7 @@
     </target>
 	
 
-    <target name="compile" depends="clean, makedir" description="Compile Java code.">
+    <target name="antCompile" depends="cleandir, makedir" description="Compile Java code.">
         <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="true">
         	<classpath refid="lib.path" />
             <classpath refid="junit.class.path" />
@@ -51,7 +51,7 @@
     </target>
 	
 	
-    <target name="junit" depends="clean, makedir, compile" description="Run JUnit tests.">
+    <target name="antJunit" depends="cleandir, makedir, antCompile" description="Run JUnit tests.">
         <junit printsummary="on" fork="true" haltonfailure="yes">
             <classpath refid="junit.class.path" />
             <formatter type="xml" />
@@ -64,17 +64,17 @@
     </target>
 	
 
-	<target name="jar" depends="clean, makedir, compile" description="Create JAR">
+	<target name="antCreateJar" depends="cleandir, makedir, antCompile" description="Create JAR">
 		<jar destfile="${jar.dir}/ClubManager.jar" basedir="${build.dir}/main"/>
 	</target>
 	
 	
-    <target name="main" depends="compile, junit, jar, javadoc" description="Build the whole project.">
+    <target name="main" depends="antCompile, antJunit, antCreateJar, antCreateJavadoc" description="Build the whole project.">
         <description>Main target</description>
     </target>
 	
 	
-    <target name="javadoc" description="Create Javadoc documentation.">
+    <target name="antCreateJavadoc" description="Create Javadoc documentation.">
         <javadoc
         	access="public"
         	author="true"
@@ -96,7 +96,7 @@
     </target>
 	
 	 
-	<target name="ditadoc" description="Generate DITA documentation">
+	<target name="antCreateDitadoc" description="Generate DITA documentation">
 	    <ant antfile="${dita.ot.dir}${file.separator}build.xml">
 	        <property name="args.input" location="${dita.dir}"/>
 	        <property name="output.dir" location="${dita.out.dir}"/>
