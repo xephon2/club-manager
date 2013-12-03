@@ -105,35 +105,28 @@ public class RuntimeManager implements ClubObserver {
     /**
      * Check, if the user's password matches to the stored password hash.
      * @param username The user name of the user
-     * @param password The password of the user
+     * @param enteredPassword The entered password
      * @return Return TRUE, if the password is correct, otherwise return FALSE.
      */
     public final boolean matchPassword(final String username,
-            final String password) {
+            final String enteredPassword) {
 
-        String enteredPassword = getClub().
+        String hashedEstimatedPassword = getClub().
                 getClubMemberByUserName(username).
                 getHashedPassword();
+        
+        // Get singleton instance of the PasswordManager.
+        PasswordManager passwordManager = PasswordManager.getPasswordManagerInstance();
+        // Hash the password 
+        String hashedEnteredPassword = passwordManager.hashPassword(enteredPassword);
 
-        String hashedPassword = null;
-        hashedPassword = passwordManager.hashPassword(password);
-
-        if (this.passwordManager != null) {
-            if (hashedPassword != null) {
-                System.out.println("hashedPassword is null");
-            }
-    
-            if (enteredPassword.equals(hashedPassword)) {
-                System.out.println("Passwort stimmt");
-                return true;
-            } else {
-                System.out.println("Passwort stimmt nicht");
-                return false;
-            }
+        if (hashedEnteredPassword.equals(hashedEstimatedPassword)) {
+            System.out.println("Password match");
+            return true;
         } else {
-            System.out.println("Password Manager does not exist!");
+            System.out.println("Passwort does not match");
+            return false;
         }
-        return false;
     }
 
     /**

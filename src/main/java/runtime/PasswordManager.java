@@ -22,29 +22,28 @@ public class PasswordManager extends Properties {
     /** Stores the ID of the PasswordManager. */
     private static final long serialVersionUID = 7884595892231423639L;
 
-    /** Stores the RuntimeManager. */
-    private RuntimeManager runtimeManager;
+    /** Store singleton instance of the PasswordManager object. */
+    private static PasswordManager passwordManager = null;    
 
     /** Stores theSHA value. */
     private final byte SHA = 40;
 
 
     /* *****************************************
-     * Constructor
-     */
-
-    /**
-     * Create a new PasswordManager.
-     * @param passwordRuntimeManager RuntimeManager
-     */
-    public PasswordManager(final RuntimeManager passwordRuntimeManager) {
-        this.runtimeManager = passwordRuntimeManager;
-    }
-
-
-    /* *****************************************
      * Methods
      */
+    
+    /** Instantiates PasswordManager and returns the
+     *  instance, if the constructor is called twice or more.
+     *  This method corresponds to the singleton pattern.
+     *  @return Returns an instance of PasswordManager.
+     */
+    public static synchronized PasswordManager getPasswordManagerInstance() {
+        if (passwordManager == null) {
+            passwordManager = new PasswordManager();
+        }
+        return passwordManager;
+    }
 
     /**
      * Create a hash of the user's password using the hasPasswort() method.
@@ -52,9 +51,10 @@ public class PasswordManager extends Properties {
      * @param plainTextPassword The (not hashed) password
      * @return hashed password
      */
-    public final String createHashedPassword(
+    public final String createHashedPasswordAndStoreToXml(
             final int clubMemberId, final String plainTextPassword) {
         String hashedPassword = hashPassword(plainTextPassword);
+        RuntimeManager runtimeManager = RuntimeManager.getRuntimeManagerInstance();
 
         setProperty(Integer.toString(clubMemberId), hashedPassword);
         try {
@@ -98,6 +98,7 @@ public class PasswordManager extends Properties {
      */
     public final String fetchPassword(final String userName) {
         System.out.println("fetchPassword()");
+        RuntimeManager runtimeManager = RuntimeManager.getRuntimeManagerInstance();
         try {
             loadFromXML(new FileInputStream(new File(
                     runtimeManager.getClub().getClubName() + "_password.xml")));

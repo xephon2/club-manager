@@ -167,8 +167,11 @@ public class XMLManager implements ClubObserver {
             NodeList list = rootNode.getChildNodes();
 
             for (int i = 0; i < list.getLength();) {
-
-                if (xmlClubMemberIdElementName.equals(clubMember.getClubMemberId())) {
+                String xmlClubMemberId = list.item(i).getNodeValue();
+                System.out.println("xmlClubMemberId: " + xmlClubMemberId);
+                String clubMemberId = Integer.toString(clubMember.getClubMemberId());
+                System.out.println("clubMemberId: " + clubMemberId);
+                if (list.item(i).getNodeValue().equals(clubMember.getClubMemberId())) {
                     System.out.println("Gibt es schon");
                     return true;
                 } else {
@@ -225,7 +228,8 @@ public class XMLManager implements ClubObserver {
                 street = clubMemberAddress.getStreet();
             }
             if (clubMemberAddress.getHouseNumber() != 0) {
-                houseNumber = Integer.toString(clubMemberAddress.getHouseNumber());
+                houseNumber = Integer.toString(
+                        clubMemberAddress.getHouseNumber());
             }
             if (clubMemberAddress.getZipCode() != 0) {
                 zipCode = Integer.toString(clubMemberAddress.getZipCode());
@@ -312,51 +316,52 @@ public class XMLManager implements ClubObserver {
 
                 Element xmlHouseNumber = document.createElement(
                         xmlClubMemberHouseNumberElementName);
-                xmlHouseNumber.appendChild(document.createTextNode(houseNumber));
+                xmlHouseNumber.appendChild(
+                        document.createTextNode(houseNumber));
                 xmlClubMember.appendChild(xmlHouseNumber);
-    
+
                 Element xmlZipCode = document.createElement(
                         xmlClubMemberZipCodeElementName);
                 xmlZipCode.appendChild(document.createTextNode(zipCode));
                 xmlClubMember.appendChild(xmlZipCode);
-    
+
                 Element xmlCity = document.createElement(
                         xmlClubMemberCityElementName);
                 xmlCity.appendChild(document.createTextNode(city));
                 xmlClubMember.appendChild(xmlCity);
-    
+
                 Element xmlBank = document.createElement(
                         xmlClubMemberBankElementName);
                 xmlBank.appendChild(document.createTextNode(bank));
                 xmlClubMember.appendChild(xmlBank);
-    
+
                 Element xmlAccountNumber = document.createElement(
                         xmlClubMemberAccountNumberElementName);
                 xmlAccountNumber.appendChild(
                         document.createTextNode(accountNumber));
                 xmlClubMember.appendChild(xmlAccountNumber);
-    
+
                 Element xmlBankIdCode = document.createElement(
                         xmlClubMemberBankIdCodeElementName);
                 xmlBankIdCode.appendChild(document.createTextNode(bankIdCode));
                 xmlClubMember.appendChild(xmlBankIdCode);
-    
+
                 Element xmlClubName = document.createElement(
                         xmlClubMemberClubElementName);
                 xmlClubName.appendChild(document.createTextNode(clubName));
                 xmlClubMember.appendChild(xmlClubName);
-    
+
                 TransformerFactory transformerFactory
                 = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
                 DOMSource source = new DOMSource(document);
                 StreamResult result = new StreamResult(new File(xmlFilename));
-    
+
                 // Output to console for testing
                 // StreamResult result = new StreamResult(System.out);
-    
+
                 transformer.transform(source, result);
-    
+
             }
             System.out.println("XMLManager has added a new Vereinsmitglied!");
             } catch (ParserConfigurationException | TransformerException |
@@ -372,16 +377,16 @@ public class XMLManager implements ClubObserver {
         System.out.println("loadXMLDocument");
         try {
             File fXmlFile = new File(xmlFilename);
-            DocumentBuilderFactory dbFactory
-            = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = null;
-            dBuilder = dbFactory.newDocumentBuilder();
-            if (dBuilder == null) {
-                System.out.println("dBuilder ist null");
+            
+            // Check if the XML file exists.
+            if (fXmlFile.exists()) {
+                DocumentBuilderFactory dbFactory
+                = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                dBuilder.parse(fXmlFile);
+                System.out.println("Document geladen");
+                createXMLDocument();                
             }
-            dBuilder.parse(fXmlFile);
-            System.out.println("Document geladen");
-            createXMLDocument();
         } catch (SAXException | IOException | ParserConfigurationException e) {
             e.printStackTrace();
         }
@@ -422,6 +427,7 @@ public class XMLManager implements ClubObserver {
 //            addXMLClubMember(clubMember);
             if (isClubMemberInFile(clubMember)) {
                 // TODO Compare properties
+                System.out.println("clubMember is in file");
             } else {
                 addXMLClubMember(clubMember);
             }
@@ -430,6 +436,7 @@ public class XMLManager implements ClubObserver {
 
     /**
      * Get the club member XML entry and change a property value.
+     * @param clubMember the club member to be changed.
      */
     // TODO Write this method
     public final void changeXMLClubMember(final ClubMember clubMember) { }

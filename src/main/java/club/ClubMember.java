@@ -1,5 +1,6 @@
 package main.java.club;
-import main.java.runtime.RuntimeManager;
+
+import main.java.runtime.PasswordManager;
 
 /**
  * Abstract class defining all club members behavoir.
@@ -170,15 +171,7 @@ public abstract class ClubMember implements ClubMemberProperties {
      * @param plainTextPassword plain password
      */
     public final void hashAndStorePassword(final String plainTextPassword) {
-        System.out.println("RuntimeManager: "
-                + RuntimeManager.getRuntimeManagerInstance());
-        System.out.println("PasswordManager: "
-                + RuntimeManager.getRuntimeManagerInstance().
-                getPasswordManager());
-        String password = RuntimeManager.
-                getRuntimeManagerInstance().getPasswordManager().
-                createHashedPassword(id, plainTextPassword);
-        this.hashedPassword = password;
+        this.hashedPassword = new PasswordManager().hashPassword(plainTextPassword);
     }
 
     /**

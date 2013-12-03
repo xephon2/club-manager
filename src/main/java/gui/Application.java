@@ -177,10 +177,10 @@ public class Application {
                         String propertyValue = getTableCellValue(
                                 rowIndexOfChangedCell,
                                 columnIndexOfChangedCell);
-                        addOrChangeClubMemberPropertiesWhenCellValueChange(
-                                tableClubMemberId,
-                                columnIndexOfChangedCell,
-                                propertyValue);
+//                        addOrChangeClubMemberPropertiesWhenCellValueChange(
+//                                tableClubMemberId,
+//                                columnIndexOfChangedCell,
+//                                propertyValue);
                     } catch (NullPointerException e) {
                         System.out.println("Property of club member"
                                 + "cannot be changed.");
@@ -230,7 +230,12 @@ public class Application {
      * @return output integer
      */
     private int convertStringToInt(final String string) {
-        return Integer.parseInt(string);
+        try {
+            return Integer.parseInt(string);
+        } catch (NumberFormatException e) {
+            System.out.println("Cannot convert String to Integer.");
+            return 0;
+        }
     }
 
     /**
@@ -251,31 +256,31 @@ public class Application {
      * @param propertyValue value of the new property
      */
     // FIXME The ID is missing.
-    private void addOrChangeClubMemberPropertiesWhenCellValueChange(
-            final int clubMemberId,
-            final int tableColumn,
-            final String propertyValue) {
-        Club club = runtimeManager.getClub();
-
-        clubMemberProperties clubMemberProperty;
-        switch (tableColumn) {
-            case 1:
-                clubMemberProperty = clubMemberProperties.FIRSTNAME;
-                break;
-            case 2:
-                clubMemberProperty = clubMemberProperties.LASTNAME;
-                break;
-            case 3:
-                clubMemberProperty = clubMemberProperties.USERNAME;
-                break;
-            default:
-                clubMemberProperty = null;
-                break;
-        }
-
-        club.addOrChangeClubMemberProperties(
-                clubMemberId,
-                clubMemberProperty,
-                propertyValue);
-    }
+//    private void addOrChangeClubMemberPropertiesWhenCellValueChange(
+//            final int clubMemberId,
+//            final int tableColumn,
+//            final String propertyValue) {
+//        Club club = runtimeManager.getClub();
+//
+//        clubMemberProperties clubMemberProperty;
+//        switch (tableColumn) {
+//            case 1:
+//                clubMemberProperty = clubMemberProperties.FIRSTNAME;
+//                break;
+//            case 2:
+//                clubMemberProperty = clubMemberProperties.LASTNAME;
+//                break;
+//            case 3:
+//                clubMemberProperty = clubMemberProperties.USERNAME;
+//                break;
+//            default:
+//                clubMemberProperty = null;
+//                break;
+//        }
+//
+//        club.addOrChangeClubMemberProperties(
+//                clubMemberId,
+//                clubMemberProperty,
+//                propertyValue);
+//    }
 }

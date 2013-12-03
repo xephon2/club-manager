@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import main.java.utility.Messages;
+
 /**
  * Creates the Login window.
  * @author Stefan Eike (s.eike85@gmail.com)
@@ -69,6 +71,8 @@ public class Login extends JFrame {
 
     /** Defines the grid column number of the OK button. */
     private final int buttonGridColumn = 5;
+    
+    private Messages messages = Messages.getMessagesInstance();
 
 
     /* *****************************************
@@ -109,7 +113,7 @@ public class Login extends JFrame {
         frame.getContentPane().setLayout(gridBagLayout);
 
         JLabel loginMessage = new JLabel(
-                main.java.utility.Messages.getString("Messages.LoginMessage"));
+                messages.getString("Messages.LoginMessage"));
         GridBagConstraints gridBagConstraintsLogin = new GridBagConstraints();
         gridBagConstraintsLogin.gridwidth = 2;
         gridBagConstraintsLogin.insets = new Insets(
@@ -122,7 +126,7 @@ public class Login extends JFrame {
         frame.getContentPane().add(loginMessage, gridBagConstraintsLogin);
 
         JLabel userNameMessage = new JLabel(
-                main.java.utility.Messages.getString("Messages.UserName"));
+                messages.getString("Messages.UserName"));
         GridBagConstraints gridBagConstraintsUserNameMessage
                 = new GridBagConstraints();
         gridBagConstraintsUserNameMessage.anchor = GridBagConstraints.EAST;
@@ -150,7 +154,7 @@ public class Login extends JFrame {
         userNameTextField.setColumns(textFieldColumns);
 
         JLabel passwordMessage
-        = new JLabel(main.java.utility.Messages.getString("Messages.Password"));
+        = new JLabel(messages.getString("Messages.Password"));
         GridBagConstraints gridBagConstraintPasswordMessage
         = new GridBagConstraints();
         gridBagConstraintPasswordMessage.anchor = GridBagConstraints.EAST;
@@ -178,7 +182,7 @@ public class Login extends JFrame {
         passwordTextField.setColumns(textFieldColumns);
 
         JButton btnOk
-        = new JButton(main.java.utility.Messages.getString("Messages.OK"));
+        = new JButton(messages.getString("Messages.OK"));
         GridBagConstraints okButtonField = new GridBagConstraints();
         okButtonField.gridx = 1;
         okButtonField.gridy = buttonGridColumn;

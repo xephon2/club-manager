@@ -4,12 +4,12 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import main.java.club.Athlete;
 import main.java.club.Club;
 import main.java.club.ClubMember;
 import main.java.gui.Application;
 import main.java.gui.Login;
 import main.java.observer.TableManager;
-import main.java.observer.XMLManager;
 
 import org.xml.sax.SAXException;
 
@@ -35,18 +35,10 @@ public class Main {
     public static void main(final String[] args) throws
     ParserConfigurationException, SAXException, IOException {
 
-        runtimeManager
-        = RuntimeManager.getRuntimeManagerInstance();
+        runtimeManager = RuntimeManager.getRuntimeManagerInstance();
         Club club = new Club("myclub");
 
-        if (runtimeManager != null) {
-            System.out.println("RuntimeManager established.");
-        } else {
-            System.out.println("RuntimeManager cannot be established.");
-        }
-
         runtimeManager.setClub(club);
-        runtimeManager.addPasswordManager(new PasswordManager(runtimeManager));
 
 //        XMLManager xman = new XMLManager(runtimeManager, "clubmembers");
         TableManager tman = new TableManager();
@@ -63,7 +55,7 @@ public class Main {
 
 //        xman.update();
 
-        ClubMember dummy = new ClubMember(333) {};
+        ClubMember dummy = new Athlete(333);
         dummy.setUsername("dummy");
         dummy.hashAndStorePassword("dummy");
         club.addClubMember(dummy);

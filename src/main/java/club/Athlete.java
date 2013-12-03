@@ -6,7 +6,7 @@ package main.java.club;
  */
 public class Athlete extends ClubMember {
 
-    public Athlete(int clubMemberId) {
+    public Athlete(final int clubMemberId) {
         super(clubMemberId);
     }
 }
