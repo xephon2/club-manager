@@ -58,6 +58,8 @@ public class Main {
 
         ClubMember dummy = new Athlete(333);
         dummy.setUsername("dummy");
+        dummy.setFirstName("dummy");
+        dummy.setLastName("dummy");
         dummy.hashAndStorePassword("dummy");
         club.addClubMember(dummy);
 

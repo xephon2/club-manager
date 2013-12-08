@@ -158,52 +158,64 @@ public class Application {
              */
             @Override
             public void tableChanged(final TableModelEvent tableCellEvent) {
-                int rowIndexOfChangedCell = tableCellEvent.getFirstRow();
-                int columnIndexOfChangedCell = tableCellEvent.getColumn();
-
-                /* If the changed cell is in the first column
-                 * (club member ID), create a new club member. */
-                if (tableCellEvent.getColumn() == 0) {
-                    try {
-                        int tableClubMemberId = convertStringToInt(
-                                getTableCellValue(rowIndexOfChangedCell, 0));
-                        createNewClubMemberWithTableCellId(tableClubMemberId);
-                    } catch (NullPointerException e) {
-                        System.out.println("Club member ID is invalid");
-                    }
-                } else {
-
-                    /* If the changed cell is not in the first column
-                     * (club member ID), try to add or change the
-                     * properties of an existing club member. */
-                    try {
-                        int tableClubMemberId = convertStringToInt(
-                                getTableCellValue(rowIndexOfChangedCell, 0));
-
-                        clubMemberProperties propertyType =
-                                getPropertyTypeFromColumnIndex(
-                                        columnIndexOfChangedCell
-                                );
-
-                        String propertyValue = getTableCellValue(
-                                rowIndexOfChangedCell,     // row-index
-                                columnIndexOfChangedCell   // column-index
-                                );
-
-                        runtimeManager.getClub().
-                            addOrChangeClubMemberProperties(
-                                tableClubMemberId,
-                                propertyType,
-                                propertyValue
-                            );
-
-                    } catch (NullPointerException e) {
-                        System.out.println("Property of club member"
-                                + "cannot be changed.");
-                    }
-                }
+                handleTableCellEvent(tableCellEvent);
             }
         });
+    }
+
+    /**
+     * Handle events that are thrown by changing the value of an
+     * arbitrary table cell.
+     * @param tableCellEvent the cell change event
+     */
+    private void handleTableCellEvent(TableModelEvent tableCellEvent) {
+        System.out.println("handleTableCellEvent()");
+        int rowIndexOfChangedCell = tableCellEvent.getFirstRow();
+        int columnIndexOfChangedCell = tableCellEvent.getColumn();
+        System.out.println("The cell in row(" + rowIndexOfChangedCell + ") "
+                + ", column(" + columnIndexOfChangedCell + ") has been changed.");
+
+        /* If the changed cell is in the first column
+         * (club member ID), create a new club member. */
+        if (tableCellEvent.getColumn() == 0) {
+            try {
+                int tableClubMemberId = convertStringToInt(
+                        getTableCellValue(rowIndexOfChangedCell, 0));
+                createNewClubMemberWithTableCellId(tableClubMemberId);
+            } catch (NullPointerException e) {
+                System.out.println("Club member ID is invalid");
+            }
+        } else {
+
+            /* If the changed cell is not in the first column
+             * (club member ID), try to add or change the
+             * properties of an existing club member. */
+            try {
+                int tableClubMemberId = convertStringToInt(
+                        getTableCellValue(rowIndexOfChangedCell, 0));
+
+                clubMemberProperties propertyType =
+                        getPropertyTypeFromColumnIndex(
+                                columnIndexOfChangedCell
+                        );
+
+                String propertyValue = getTableCellValue(
+                        rowIndexOfChangedCell,     // row-index
+                        columnIndexOfChangedCell   // column-index
+                        );
+
+                runtimeManager.getClub().
+                    addOrChangeClubMemberProperties(
+                        tableClubMemberId,
+                        propertyType,
+                        propertyValue
+                    );
+
+            } catch (NullPointerException e) {
+                System.out.println("Property of club member"
+                        + "cannot be changed.");
+            }
+        }
     }
 
     /**
@@ -259,6 +271,9 @@ public class Application {
      * @param clubMemberId clubMemberId from table cell
      */
     private void createNewClubMemberWithTableCellId(final int clubMemberId) {
+        System.out.println("createNewClubMemberWithTableCellId(): "
+                + "the mandatory ID cell has been filled. "
+                + "Try to create a new club member.");
         ClubMember newClubMember = new ClubMember(clubMemberId) { };
         runtimeManager.getClub().addClubMember(newClubMember);
     }

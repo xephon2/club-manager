@@ -80,7 +80,12 @@ public class Club implements ClubBehavior {
     public final void addClubMember(final ClubMember clubMember) {
         clubMembers.add(clubMember);
         printAllClubMembersToConsole();
-        notifyObservers();
+        if (clubObservers != null) {
+            System.out.println("addClubMember(): Inform obsevers about new club member.");
+            notifyObservers();            
+        } else {
+            System.out.println("addClubMember(): No observers found.");
+        }
     }
 
     /**
