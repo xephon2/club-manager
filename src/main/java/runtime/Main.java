@@ -10,6 +10,7 @@ import main.java.club.ClubMember;
 import main.java.gui.Application;
 import main.java.gui.Login;
 import main.java.observer.TableManager;
+import main.java.observer.XMLManager;
 
 import org.xml.sax.SAXException;
 
@@ -40,20 +41,20 @@ public class Main {
 
         runtimeManager.setClub(club);
 
-//        XMLManager xman = new XMLManager(runtimeManager, "clubmembers");
+        XMLManager xman = new XMLManager(runtimeManager, "clubmembers");
         TableManager tman = new TableManager();
 
-//        if (xman != null) {
-//            System.out.println("XMLManager established.");
-//            club.registerClubObserver(xman);
-//        }
+        if (xman != null) {
+            System.out.println("XMLManager established.");
+            club.registerClubObserver(xman);
+            xman.update();
+        }
 
         if (tman != null) {
             System.out.println("Tablemanager established.");
             club.registerClubObserver(tman);
+            tman.update();
         }
-
-//        xman.update();
 
         ClubMember dummy = new Athlete(333);
         dummy.setUsername("dummy");

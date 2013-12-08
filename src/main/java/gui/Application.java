@@ -13,7 +13,6 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
-import main.java.club.Club;
 import main.java.club.Club.clubMemberProperties;
 import main.java.club.ClubMember;
 import main.java.runtime.RuntimeManager;
@@ -152,6 +151,11 @@ public class Application {
         }
 
         tableModel.addTableModelListener(new TableModelListener() {
+
+            /** Create a listener for the club table. If the user changes
+             * a table entry, the row/column index is used to get the value
+             * and send it to an observer.
+             */
             @Override
             public void tableChanged(final TableModelEvent tableCellEvent) {
                 int rowIndexOfChangedCell = tableCellEvent.getFirstRow();
@@ -168,19 +172,31 @@ public class Application {
                         System.out.println("Club member ID is invalid");
                     }
                 } else {
+
                     /* If the changed cell is not in the first column
                      * (club member ID), try to add or change the
                      * properties of an existing club member. */
                     try {
                         int tableClubMemberId = convertStringToInt(
                                 getTableCellValue(rowIndexOfChangedCell, 0));
+
+                        clubMemberProperties propertyType =
+                                getPropertyTypeFromColumnIndex(
+                                        columnIndexOfChangedCell
+                                );
+
                         String propertyValue = getTableCellValue(
-                                rowIndexOfChangedCell,
-                                columnIndexOfChangedCell);
-//                        addOrChangeClubMemberPropertiesWhenCellValueChange(
-//                                tableClubMemberId,
-//                                columnIndexOfChangedCell,
-//                                propertyValue);
+                                rowIndexOfChangedCell,     // row-index
+                                columnIndexOfChangedCell   // column-index
+                                );
+
+                        runtimeManager.getClub().
+                            addOrChangeClubMemberProperties(
+                                tableClubMemberId,
+                                propertyType,
+                                propertyValue
+                            );
+
                     } catch (NullPointerException e) {
                         System.out.println("Property of club member"
                                 + "cannot be changed.");
@@ -248,39 +264,23 @@ public class Application {
     }
 
     /**
-     * Use the index of the table cell to define the property type.
-     * Use the club member ID to get the club member and add or change
-     * the gathered property to propertyValue.
-     * @param clubMemberId ID of the club member
-     * @param tableColumn column of the changed table cell
-     * @param propertyValue value of the new property
+     * Receive the index of a changed table column.
+     * Use the index to get the property type of the column
+     * and return it as a clubMemberProperties object.
+     * @param tableColumnIndex index of the changed table column
+     * @return type of the changed property
      */
-    // FIXME The ID is missing.
-//    private void addOrChangeClubMemberPropertiesWhenCellValueChange(
-//            final int clubMemberId,
-//            final int tableColumn,
-//            final String propertyValue) {
-//        Club club = runtimeManager.getClub();
-//
-//        clubMemberProperties clubMemberProperty;
-//        switch (tableColumn) {
-//            case 1:
-//                clubMemberProperty = clubMemberProperties.FIRSTNAME;
-//                break;
-//            case 2:
-//                clubMemberProperty = clubMemberProperties.LASTNAME;
-//                break;
-//            case 3:
-//                clubMemberProperty = clubMemberProperties.USERNAME;
-//                break;
-//            default:
-//                clubMemberProperty = null;
-//                break;
-//        }
-//
-//        club.addOrChangeClubMemberProperties(
-//                clubMemberId,
-//                clubMemberProperty,
-//                propertyValue);
-//    }
+    private clubMemberProperties getPropertyTypeFromColumnIndex(
+            final int tableColumnIndex) {
+        switch (tableColumnIndex) {
+            case 1:
+                return clubMemberProperties.FIRSTNAME;
+            case 2:
+                return clubMemberProperties.LASTNAME;
+            case 3:
+                return clubMemberProperties.USERNAME;
+            default:
+                return null;
+        }
+    }
 }

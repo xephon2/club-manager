@@ -10,3 +10,5 @@ temp/**
 .classpath
 .project
 .gradle/**
+testreport/TEST-ClubMemberTest.txt
+dita/dita-ot/**

@@ -4,7 +4,6 @@ import java.util.List;
 
 import main.java.observer.ClubObserver;
 import main.java.utility.Messages;
-import main.java.club.ClubBehavior;
 
 /**
  * The club class implements the ClubObserverBehavior interface.
@@ -80,6 +79,7 @@ public class Club implements ClubBehavior {
      */
     public final void addClubMember(final ClubMember clubMember) {
         clubMembers.add(clubMember);
+        printAllClubMembersToConsole();
         notifyObservers();
     }
 
@@ -120,6 +120,10 @@ public class Club implements ClubBehavior {
      * Print all club members to the console.
      */
     public final void printAllClubMembersToConsole() {
+        System.out.println("The club '"
+                + clubName + "' has "
+                + clubMembers.size()
+                + " member(s):");
         for (ClubMember mg : clubMembers) {
             System.out.println(
                     mg.getFirstName() + " "
@@ -179,6 +183,12 @@ public class Club implements ClubBehavior {
                 System.out.println("Something is wrong"
                         + "in addOrChangeProperties");
         }
+
+        System.out.println("The clubMember '"
+                + clubMemberId + "' has changed the property '"
+                + propertyType + "' to the value '"
+                + propertyValue + "'.");
+
         notifyObservers();
         printAllClubMembersToConsole();
     }
@@ -188,6 +198,8 @@ public class Club implements ClubBehavior {
      */
     public final void notifyObservers() {
         for (main.java.observer.ClubObserver clubObserver : clubObservers) {
+            System.out.println("The observer '" + clubObserver
+                    + "' has been informed.");
             clubObserver.update();
         }
     }

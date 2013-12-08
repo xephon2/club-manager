@@ -171,7 +171,8 @@ public abstract class ClubMember implements ClubMemberProperties {
      * @param plainTextPassword plain password
      */
     public final void hashAndStorePassword(final String plainTextPassword) {
-        this.hashedPassword = new PasswordManager().hashPassword(plainTextPassword);
+        this.hashedPassword = new PasswordManager().
+                hashPassword(plainTextPassword);
     }
 
     /**

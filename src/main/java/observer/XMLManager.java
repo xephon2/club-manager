@@ -2,20 +2,28 @@ package main.java.observer;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import main.java.club.Address;
 import main.java.club.BankAccount;
 import main.java.club.ClubMember;
-import main.java.observer.ClubObserver;
+import main.java.club.ClubMemberProperties;
 import main.java.runtime.RuntimeManager;
 
 import org.w3c.dom.Document;
@@ -45,48 +53,48 @@ public class XMLManager implements ClubObserver {
     private String rootelement;
 
     /** Set the element name containing a club member. */
-    private final String xmlClubMemberElementName = "clubmember";
+    private final String clubMemberElementName = "clubmember";
 
     /** Set the element name containing the club member's ID. */
-    private final String xmlClubMemberIdElementName = "id";
+    private final String idElementName = "id";
 
     /** Set the element name containing the club member's first name. */
-    private final String xmlClubMemberFirstNameElementName = "firstname";
+    private final String firstNameElementName = "firstname";
 
     /** Set the element name containing the club member's last name. */
-    private final String xmlClubMemberLastNameElementName = "lastname";
+    private final String lastNameElementName = "lastname";
 
     /** Set the element name containing the club member's user name. */
-    private final String xmlClubMemberUserNameElementName = "username";
+    private final String userNameElementName = "username";
 
     /** Set the element name containing the club member's password. */
-    private final String xmlClubMemberPasswordElementName = "password";
+    private final String passwordElementName = "password";
 
     /** Set the element name containing the club member's street. */
-    private final String xmlClubMemberStreetElementName = "street";
+    private final String streetElementName = "street";
 
     /** Set the element name containing the club member's house number. */
-    private final String xmlClubMemberHouseNumberElementName = "housenumber";
+    private final String houseNumberElementName = "housenumber";
 
     /** Set the element name containing the club member's zip code. */
-    private final String xmlClubMemberZipCodeElementName = "zip";
+    private final String zipCodeElementName = "zip";
 
     /** Set the element name containing the club member's city. */
-    private final String xmlClubMemberCityElementName = "city";
+    private final String cityElementName = "city";
 
     /** Set the element name containing the club member's bank. */
-    private final String xmlClubMemberBankElementName = "bank";
+    private final String bankElementName = "bank";
 
     /** Set the element name containing the club member's bank
      * account number. */
-    private final String xmlClubMemberAccountNumberElementName
+    private final String accountNumberElementName
     = "accountnumber";
 
     /** Set the element name containing the club member's bank ID code. */
-    private final String xmlClubMemberBankIdCodeElementName = "bankidcode";
+    private final String bankIdCodeElementName = "bankidcode";
 
     /** Set the element name containing the club member's club. */
-    private final String xmlClubMemberClubElementName = "club";
+    private final String clubElementName = "club";
 
 
     /* *****************************************
@@ -156,28 +164,25 @@ public class XMLManager implements ClubObserver {
     public final boolean isClubMemberInFile(final ClubMember clubMember) {
         try {
             DocumentBuilderFactory domFactory
-            = DocumentBuilderFactory.newInstance();
+                    = DocumentBuilderFactory.newInstance();
             domFactory.setIgnoringComments(true);
             DocumentBuilder builder;
             builder = domFactory.newDocumentBuilder();
             Document document = builder.parse(xmlFilename);
+            document.getDocumentElement().normalize();
 
-            Node rootNode = document.getFirstChild();
+            XPath xPath =  XPathFactory.newInstance().newXPath();
+            String expression = "//id[text()='333']/../firstname";
 
-            NodeList list = rootNode.getChildNodes();
+            NodeList clubMemberList = null;
+            try {
+                clubMemberList = (NodeList) xPath.compile(expression).
+                        evaluate(document, XPathConstants.NODESET);
+                System.out.println("tried successfully");
 
-            for (int i = 0; i < list.getLength();) {
-                String xmlClubMemberId = list.item(i).getNodeValue();
-                System.out.println("xmlClubMemberId: " + xmlClubMemberId);
-                String clubMemberId = Integer.toString(clubMember.getClubMemberId());
-                System.out.println("clubMemberId: " + clubMemberId);
-                if (list.item(i).getNodeValue().equals(clubMember.getClubMemberId())) {
-                    System.out.println("Gibt es schon");
-                    return true;
-                } else {
-                    System.out.println("Gibt es noch nicht");
-                    return false;
-                }
+                return clubMemberList.getLength() > 0;
+            } catch (XPathExpressionException e) {
+                e.printStackTrace();
             }
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
@@ -192,183 +197,154 @@ public class XMLManager implements ClubObserver {
     public final void addXMLClubMember(final ClubMember clubMember) {
         System.out.println("addClubMember()");
 
-        /* A club member ID is mandatory.
-         * All other properties are not mandatory. */
-        String clubMemberId = Integer.toString(clubMember.getClubMemberId());
-        String firstName = "";
-        String lastName = "";
-        String userName = "";
-        String password = "";
-        String street = "";
-        String houseNumber = "";
-        String zipCode = "";
-        String city = "";
-        String bank = "";
-        String accountNumber = "";
-        String bankIdCode = "";
-        String clubName = "";
-
-        if (clubMember.getFirstName() != null) {
-            firstName = clubMember.getFirstName();
-        }
-        if (clubMember.getLastName() != null) {
-            lastName = clubMember.getLastName();
-        }
-        if (clubMember.getUsername() != null) {
-            userName = clubMember.getUsername();
-        }
-        if (clubMember.getHashedPassword() != null) {
-            password = clubMember.getHashedPassword();
-        }
-
-        Address clubMemberAddress = null;
-        if (clubMember.getAddress() != null) {
-            clubMemberAddress = clubMember.getAddress();
-            if (clubMemberAddress.getStreet() != null) {
-                street = clubMemberAddress.getStreet();
-            }
-            if (clubMemberAddress.getHouseNumber() != 0) {
-                houseNumber = Integer.toString(
-                        clubMemberAddress.getHouseNumber());
-            }
-            if (clubMemberAddress.getZipCode() != 0) {
-                zipCode = Integer.toString(clubMemberAddress.getZipCode());
-            }
-            if (clubMemberAddress.getCity() != null) {
-                city = clubMemberAddress.getCity();
-            }
-        }
-
-        BankAccount clubMemberBankAccount = null;
-        if (clubMember.getBankAccount() != null) {
-            clubMemberBankAccount = clubMember.getBankAccount();
-            if (clubMemberBankAccount.getBankName() != null) {
-                bank = clubMemberBankAccount.getBankName();
-            }
-            if (clubMemberBankAccount.getAccountNumber() != 0) {
-                accountNumber = Integer.toString(
-                        clubMemberBankAccount.getAccountNumber());
-            }
-            if (clubMemberBankAccount.getBankIdCode() != 0) {
-                bankIdCode = Integer.toString(
-                        clubMemberBankAccount.getBankIdCode());
-            }
-        }
-
-        if (clubMember.getClub() != null) {
-            clubName = clubMember.getClub().getClubName();
-        }
-
-
         try {
             DocumentBuilderFactory domFactory
             = DocumentBuilderFactory.newInstance();
             domFactory.setIgnoringComments(true);
             DocumentBuilder builder = domFactory.newDocumentBuilder();
 
-            System.out.println("xmlFilename: " + xmlFilename);
+            Document doc = builder.parse(xmlFilename);
 
-            Document document = builder.parse(xmlFilename);
+            if (doc != null) {
+                Node root = doc.getFirstChild();
 
-            if (document != null) {
-
-                System.out.println("document: " + document);
-
-                Node elementRoot = document.getFirstChild();
-
-                System.out.println("elementRoot: " + elementRoot);
-
-                Element xmlClubMember = document.createElement(
-                        xmlClubMemberElementName);
-                elementRoot.appendChild(xmlClubMember);
-
-                System.out.println("xmlClubMember: " + xmlClubMember);
-
-                Element xmlClubMemberId = document.createElement(
-                        xmlClubMemberIdElementName);
-                xmlClubMemberId.appendChild(document.createTextNode(clubMemberId));
-                xmlClubMember.appendChild(xmlClubMemberId);
-
-                Element xmlFirstName = document.createElement(
-                        xmlClubMemberFirstNameElementName);
-                xmlFirstName.appendChild(document.createTextNode(firstName));
-                xmlClubMember.appendChild(xmlFirstName);
-
-                Element xmlLastName = document.createElement(
-                        xmlClubMemberLastNameElementName);
-                xmlLastName.appendChild(document.createTextNode(lastName));
-                xmlClubMember.appendChild(xmlLastName);
-
-                Element xmlUserName = document.createElement(
-                        xmlClubMemberUserNameElementName);
-                xmlUserName.appendChild(document.createTextNode(userName));
-                xmlClubMember.appendChild(xmlUserName);
-
-                Element xmlPassword = document.createElement(
-                        xmlClubMemberPasswordElementName);
-                xmlPassword.appendChild(document.createTextNode(password));
-                xmlClubMember.appendChild(xmlPassword);
-
-                Element xmlStreet = document.createElement(
-                        xmlClubMemberStreetElementName);
-                xmlStreet.appendChild(document.createTextNode(street));
-                xmlClubMember.appendChild(xmlStreet);
-
-                Element xmlHouseNumber = document.createElement(
-                        xmlClubMemberHouseNumberElementName);
-                xmlHouseNumber.appendChild(
-                        document.createTextNode(houseNumber));
-                xmlClubMember.appendChild(xmlHouseNumber);
-
-                Element xmlZipCode = document.createElement(
-                        xmlClubMemberZipCodeElementName);
-                xmlZipCode.appendChild(document.createTextNode(zipCode));
-                xmlClubMember.appendChild(xmlZipCode);
-
-                Element xmlCity = document.createElement(
-                        xmlClubMemberCityElementName);
-                xmlCity.appendChild(document.createTextNode(city));
-                xmlClubMember.appendChild(xmlCity);
-
-                Element xmlBank = document.createElement(
-                        xmlClubMemberBankElementName);
-                xmlBank.appendChild(document.createTextNode(bank));
-                xmlClubMember.appendChild(xmlBank);
-
-                Element xmlAccountNumber = document.createElement(
-                        xmlClubMemberAccountNumberElementName);
-                xmlAccountNumber.appendChild(
-                        document.createTextNode(accountNumber));
-                xmlClubMember.appendChild(xmlAccountNumber);
-
-                Element xmlBankIdCode = document.createElement(
-                        xmlClubMemberBankIdCodeElementName);
-                xmlBankIdCode.appendChild(document.createTextNode(bankIdCode));
-                xmlClubMember.appendChild(xmlBankIdCode);
-
-                Element xmlClubName = document.createElement(
-                        xmlClubMemberClubElementName);
-                xmlClubName.appendChild(document.createTextNode(clubName));
-                xmlClubMember.appendChild(xmlClubName);
+                Element newClubMemberElement =
+                        createClubMemberElement(doc, clubMember);
+                root.appendChild(newClubMemberElement);
 
                 TransformerFactory transformerFactory
                 = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
-                DOMSource source = new DOMSource(document);
+                DOMSource source = new DOMSource(doc);
                 StreamResult result = new StreamResult(new File(xmlFilename));
-
-                // Output to console for testing
-                // StreamResult result = new StreamResult(System.out);
-
                 transformer.transform(source, result);
-
             }
-            System.out.println("XMLManager has added a new Vereinsmitglied!");
+            System.out.println("XMLManager has added a new club member!");
             } catch (ParserConfigurationException | TransformerException |
                 SAXException | IOException e) {
                     e.printStackTrace();
         }
     }
+
+    /**
+     * Create XML element of a club member.
+     * @param doc the XML document
+     * @param clubMember the club member
+     * @return the new XML club member element
+     */
+    private Element createClubMemberElement(
+            final Document doc,
+            final ClubMember clubMember) {
+
+        Element xmlClubMember;
+        xmlClubMember = doc.createElement(clubMemberElementName);
+
+        Element xmlClubMemberId;
+        String clubMemberId = "";
+        clubMemberId = Integer.toString(clubMember.getClubMemberId());
+        xmlClubMemberId = doc.createElement(idElementName);
+        xmlClubMemberId.appendChild(doc.createTextNode(clubMemberId));
+        xmlClubMember.appendChild(xmlClubMemberId);
+
+        Element xmlFirstName;
+        String firstName = "";
+        firstName = clubMember.getFirstName();
+        xmlFirstName = doc.createElement(firstNameElementName);
+        xmlFirstName.appendChild(doc.createTextNode(firstName));
+        xmlClubMember.appendChild(xmlFirstName);
+
+        Element xmlLastName;
+        String lastName = "";
+        lastName = clubMember.getLastName();
+        xmlLastName = doc.createElement(lastNameElementName);
+        xmlLastName.appendChild(doc.createTextNode(lastName));
+        xmlClubMember.appendChild(xmlLastName);
+
+        Element xmlUserName;
+        String userName = "";
+        userName = clubMember.getUsername();
+        xmlUserName = doc.createElement(userNameElementName);
+        xmlUserName.appendChild(doc.createTextNode(userName));
+        xmlClubMember.appendChild(xmlUserName);
+
+        Element xmlPassword;
+        String password = "";
+        password = clubMember.getHashedPassword();
+        xmlPassword = doc.createElement(passwordElementName);
+        xmlPassword.appendChild(doc.createTextNode(password));
+        xmlClubMember.appendChild(xmlPassword);
+
+        Address clubMemberAddress;
+        clubMemberAddress = clubMember.getAddress();
+
+        if (clubMemberAddress != null) {
+            Element xmlStreet;
+            String street = "";
+            street = clubMemberAddress.getStreet();
+            xmlStreet = doc.createElement(streetElementName);
+            xmlStreet.appendChild(doc.createTextNode(street));
+            xmlClubMember.appendChild(xmlStreet);
+
+            Element xmlHouseNumber;
+            String houseNumber = "";
+            houseNumber = Integer.toString(clubMemberAddress.getHouseNumber());
+            xmlHouseNumber = doc.createElement(houseNumberElementName);
+            xmlHouseNumber.appendChild(doc.createTextNode(houseNumber));
+            xmlClubMember.appendChild(xmlHouseNumber);
+
+            Element xmlZipCode;
+            String zipCode = "";
+            zipCode = Integer.toString(clubMemberAddress.getZipCode());
+            xmlZipCode = doc.createElement(zipCodeElementName);
+            xmlZipCode.appendChild(doc.createTextNode(zipCode));
+            xmlClubMember.appendChild(xmlZipCode);
+
+            Element xmlCity;
+            String city = "";
+            city = clubMemberAddress.getCity();
+            xmlCity = doc.createElement(cityElementName);
+            xmlCity.appendChild(doc.createTextNode(city));
+            xmlClubMember.appendChild(xmlCity);
+        }
+
+        BankAccount clubMemberBankAccount;
+        clubMemberBankAccount = clubMember.getBankAccount();
+
+        if (clubMemberBankAccount != null) {
+            Element xmlBank;
+            String bank = "";
+            bank = clubMemberBankAccount.getBankName();
+            xmlBank = doc.createElement(bankElementName);
+            xmlBank.appendChild(doc.createTextNode(bank));
+            xmlClubMember.appendChild(xmlBank);
+
+            Element xmlAccountNumber;
+            String accountNumber = "";
+            accountNumber = Integer.toString(
+                    clubMemberBankAccount.getAccountNumber());
+            xmlAccountNumber = doc.createElement(accountNumberElementName);
+            xmlAccountNumber.appendChild(doc.createTextNode(accountNumber));
+            xmlClubMember.appendChild(xmlAccountNumber);
+
+            Element xmlBankIdCode;
+            String bankIdCode = "";
+            bankIdCode = Integer.toString(
+                    clubMemberBankAccount.getBankIdCode());
+            xmlBankIdCode = doc.createElement(bankIdCodeElementName);
+            xmlBankIdCode.appendChild(doc.createTextNode(bankIdCode));
+            xmlClubMember.appendChild(xmlBankIdCode);
+        }
+
+        Element xmlClubName;
+        String clubName = "";
+        clubName = clubMember.getClub().getClubName();
+        xmlClubName = doc.createElement(clubElementName);
+        xmlClubName.appendChild(doc.createTextNode(clubName));
+        xmlClubMember.appendChild(xmlClubName);
+
+        return xmlClubMember;
+    }
+
 
     /**
      * Load a created XML file and return true on success.
@@ -377,7 +353,7 @@ public class XMLManager implements ClubObserver {
         System.out.println("loadXMLDocument");
         try {
             File fXmlFile = new File(xmlFilename);
-            
+
             // Check if the XML file exists.
             if (fXmlFile.exists()) {
                 DocumentBuilderFactory dbFactory
@@ -385,7 +361,7 @@ public class XMLManager implements ClubObserver {
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 dBuilder.parse(fXmlFile);
                 System.out.println("Document geladen");
-                createXMLDocument();                
+                createXMLDocument();
             }
         } catch (SAXException | IOException | ParserConfigurationException e) {
             e.printStackTrace();
@@ -412,24 +388,24 @@ public class XMLManager implements ClubObserver {
      * are consumed from Subject.
      */
     public final void update() {
-        addOrChangeXMLClubMember();
+        synchronizeAllClubMembers();
         System.out.println("XMLManager.update()");
     }
 
     /**
-     * Compare all club members with the corresponding XML entries.
-     * If an entry deviates or is missing, change it.
+     * Compares all members of the club with all club members
+     * in the XML file. If properties of an XML entry are not
+     * equal to the club member properties, overwrite the
+     * properties of the XML entry.
      */
-    // TODO This method is incredible slow. Optimize it!
-    private void addOrChangeXMLClubMember() {
-        for (ClubMember clubMember : runtimeManager.
-                getClub().getClubMembers()) {
-//            addXMLClubMember(clubMember);
-            if (isClubMemberInFile(clubMember)) {
-                // TODO Compare properties
-                System.out.println("clubMember is in file");
-            } else {
+    private void synchronizeAllClubMembers() {
+        List<ClubMember> clubMembers;
+        clubMembers = runtimeManager.getClub().getClubMembers();
+        for (ClubMember clubMember : clubMembers) {
+            if (!(isClubMemberInFile(clubMember))) {
                 addXMLClubMember(clubMember);
+            } else {
+                System.out.println("clubMember is in not in file.");
             }
         }
     }
@@ -437,7 +413,54 @@ public class XMLManager implements ClubObserver {
     /**
      * Get the club member XML entry and change a property value.
      * @param clubMember the club member to be changed.
+     * @param property of the club member to be changed
+     * @param propertyValue new value of the property
      */
     // TODO Write this method
-    public final void changeXMLClubMember(final ClubMember clubMember) { }
+    public final void changeXMLClubMember(
+            final ClubMember clubMember,
+            final ClubMemberProperties property,
+            final String propertyValue) {
+
+        DocumentBuilderFactory domFactory
+        = DocumentBuilderFactory.newInstance();
+        domFactory.setIgnoringComments(true);
+        DocumentBuilder builder;
+        Document doc = null;
+
+        try {
+            builder = domFactory.newDocumentBuilder();
+            doc = builder.parse(xmlFilename);
+        } catch (SAXException | IOException | ParserConfigurationException e1) {
+            e1.printStackTrace();
+        }
+        Source source = new DOMSource(doc);
+
+        // Hier den XPath-Teil erstellen
+
+        String expression = "//id[text()='333']/../firstname";
+
+        XPath xPath =  XPathFactory.newInstance().newXPath();
+        NodeList myNodeList = null;
+
+        try {
+            myNodeList = (NodeList) xPath.compile(expression)
+                    .evaluate(doc, XPathConstants.NODESET);
+        } catch (XPathExpressionException e1) {
+            e1.printStackTrace();
+        }
+        myNodeList.item(0).setNodeValue("Hi mom!");
+
+        File file = new File(xmlFilename);
+        Result result = new StreamResult(file);
+
+        Transformer xformer;
+        try {
+            xformer = TransformerFactory.newInstance().newTransformer();
+            xformer.transform(source, result);
+        } catch (TransformerFactoryConfigurationError
+                | TransformerException e) {
+            e.printStackTrace();
+        }
+    }
 }

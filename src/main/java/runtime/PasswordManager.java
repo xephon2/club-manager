@@ -23,7 +23,7 @@ public class PasswordManager extends Properties {
     private static final long serialVersionUID = 7884595892231423639L;
 
     /** Store singleton instance of the PasswordManager object. */
-    private static PasswordManager passwordManager = null;    
+    private static PasswordManager passwordManager = null;
 
     /** Stores theSHA value. */
     private final byte SHA = 40;
@@ -32,7 +32,7 @@ public class PasswordManager extends Properties {
     /* *****************************************
      * Methods
      */
-    
+
     /** Instantiates PasswordManager and returns the
      *  instance, if the constructor is called twice or more.
      *  This method corresponds to the singleton pattern.
@@ -54,7 +54,8 @@ public class PasswordManager extends Properties {
     public final String createHashedPasswordAndStoreToXml(
             final int clubMemberId, final String plainTextPassword) {
         String hashedPassword = hashPassword(plainTextPassword);
-        RuntimeManager runtimeManager = RuntimeManager.getRuntimeManagerInstance();
+        RuntimeManager runtimeManager =
+                RuntimeManager.getRuntimeManagerInstance();
 
         setProperty(Integer.toString(clubMemberId), hashedPassword);
         try {
@@ -98,7 +99,8 @@ public class PasswordManager extends Properties {
      */
     public final String fetchPassword(final String userName) {
         System.out.println("fetchPassword()");
-        RuntimeManager runtimeManager = RuntimeManager.getRuntimeManagerInstance();
+        RuntimeManager runtimeManager =
+                RuntimeManager.getRuntimeManagerInstance();
         try {
             loadFromXML(new FileInputStream(new File(
                     runtimeManager.getClub().getClubName() + "_password.xml")));

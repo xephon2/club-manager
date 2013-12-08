@@ -2,29 +2,38 @@
 <project name="ClubManager" default="main" basedir=".">
 	
     <property name="src.dir" location="src" description="Set the source directory."/>
+    <property name="test.dir" location="src/test" description="Set the test directory."/>
     <property name="build.dir" location="bin" description="Set the build directory."/>
     <property name="jar.dir" location="jar" description="Set the jar directory."/>
     <property name="test.dir" location="src" description="Set the test directory variable."/>
     <property name="doc.dir" location="doc" description="Set the documentation directory variable."/>
     <property name="test.report.dir" location="testreport" description="Set the test report directory."/>
     <property name="dita.dir" location="dita/"/>
-    <property name="dita.ot.dir" location="repositories/dita-ot/"/>
-	<property name="dita.out.dir" location="doc/ditadoc/" />
-    <property name="dita.map" location="ditadoc/club-manager.ditamap" />
-	<property name="lib.dir" value="lib"/>
+    <property name="dita.ot.dir" location="dita/dita-ot/"/>
+    <property name="dita.out.dir" location="doc/ditadoc/" />
+    <property name="dita.map" location="dita/club-manager.ditamap" />
+    <property name="lib.dir" value="lib"/>
 
+
+    <!--
+      - Define path variables.
+      -->
 	
     <path id="junit.class.path" description="Define the classpath which includes the junit.jar and the classes after compiling">
         <pathelement location="${lib.dir}/hamcrest-core-1.3.jar" />    <!-- Additional JUnit lib -->
     	<pathelement location="${lib.dir}/junit-4.11.jar" />
         <pathelement location="${build.dir}" />
     </path>
-	
-	<path id="lib.path" description="Library classpath">
-	    <pathelement location="${lib.dir}/miglayout15-swing.jar"/>
-	    <pathelement location="${lib.dir}/miglayout-src.zip"/>
-	</path>
 
+    <path id="lib.path" description="Library classpath">
+        <pathelement location="${lib.dir}/miglayout15-swing.jar"/>
+        <pathelement location="${lib.dir}/miglayout-src.zip"/>
+    </path>
+
+
+    <!--
+      - Define Ant targets.
+      -->
 
     <target name="cleandir" description="Delete old build directories.">
         <delete dir="${build.dir}" />
@@ -45,18 +54,18 @@
 
     <target name="antCompile" depends="cleandir, makedir" description="Compile Java code.">
         <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="true">
-        	<classpath refid="lib.path" />
+            <classpath refid="lib.path" />
             <classpath refid="junit.class.path" />
         </javac>
     </target>
 	
 	
     <target name="antJunit" depends="cleandir, makedir, antCompile" description="Run JUnit tests.">
-        <junit printsummary="on" fork="true" haltonfailure="yes">
+        <junit printsummary="yes" haltonfailure="yes">
             <classpath refid="junit.class.path" />
-            <formatter type="xml" />
+            <formatter type="plain" />
             <batchtest todir="${test.report.dir}">
-                <fileset dir="${src.dir}">
+                <fileset dir="${test.dir}">
                     <include name="**/*Test*.java" />
                 </fileset>
             </batchtest>
@@ -64,9 +73,9 @@
     </target>
 	
 
-	<target name="antCreateJar" depends="cleandir, makedir, antCompile" description="Create JAR">
-		<jar destfile="${jar.dir}/ClubManager.jar" basedir="${build.dir}/main"/>
-	</target>
+    <target name="antCreateJar" depends="cleandir, makedir, antCompile" description="Create JAR">
+        <jar destfile="${jar.dir}/ClubManager.jar" basedir="${build.dir}/main"/>
+    </target>
 	
 	
     <target name="main" depends="antCompile, antJunit, antCreateJar, antCreateJavadoc" description="Build the whole project.">
@@ -76,32 +85,31 @@
 	
     <target name="antCreateJavadoc" description="Create Javadoc documentation.">
         <javadoc
-        	access="public"
-        	author="true"
-        	classpath="lib/hamcrest-core-1.3.jar:lib/junit-4.11.jar:lib/miglayout15-swing.jar:lib/miglayout-src.zip"
-        	doctitle="Club Manager Documentation"
-        	nodeprecated="false"
-        	nodeprecatedlist="false"
-        	noindex="false"
-        	nonavbar="false"
-        	notree="false"
-        	packagenames="test,main.java.gui,main.java.club,main.java.runtime,main.java.observer,main.java.utility"
-        	source="1.7"
-        	sourcepath="${src.dir}"
-    		splitindex="true"
-        	use="true"
-        	version="true"
-        	destdir="doc/javadoc">
+            access="public"
+            author="true"
+            classpath="lib/hamcrest-core-1.3.jar:lib/junit-4.11.jar:lib/miglayout15-swing.jar:lib/miglayout-src.zip"
+            doctitle="Club Manager Documentation"
+            nodeprecated="false"
+            nodeprecatedlist="false"
+            noindex="false"
+            nonavbar="false"
+            notree="false"
+            packagenames="test,main.java.gui,main.java.club,main.java.runtime,main.java.observer,main.java.utility"
+            source="1.7"
+            sourcepath="${src.dir}"
+    	    splitindex="true"
+            use="true"
+            version="true"
+            destdir="doc/javadoc">
         </javadoc>
     </target>
-	
-	 
-	<target name="antCreateDitadoc" description="Generate DITA documentation">
-	    <ant antfile="${dita.ot.dir}${file.separator}build.xml">
-	        <property name="args.input" location="${dita.dir}"/>
-	        <property name="output.dir" location="${dita.out.dir}"/>
-	        <property name="transtype" value="xhtml"/>
-	    </ant>
-	</target>
+
+    <target name="antCreateDitadoc" description="Generate DITA documentation">
+        <ant antfile="${dita.ot.dir}/build.xml">
+	    <property name="args.input" value="../../dita/club-manager.ditamap"/>
+	    <property name="output.dir" value="../../doc/ditadoc"/>
+	    <property name="transtype" value="pdf"/>
+        </ant>
+    </target>
 
 </project> 

@@ -71,7 +71,9 @@ public class Login extends JFrame {
 
     /** Defines the grid column number of the OK button. */
     private final int buttonGridColumn = 5;
-    
+
+    /** Define an instance of the Messages object to display
+     *  strings from messages.properties on the GUI. */
     private Messages messages = Messages.getMessagesInstance();
 
 

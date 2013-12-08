@@ -6,6 +6,10 @@ package main.java.club;
  */
 public class Athlete extends ClubMember {
 
+    /**
+     * Create an athlete.
+     * @param clubMemberId id
+     */
     public Athlete(final int clubMemberId) {
         super(clubMemberId);
     }
