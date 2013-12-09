@@ -81,8 +81,9 @@ public class Club implements ClubBehavior {
         clubMembers.add(clubMember);
         printAllClubMembersToConsole();
         if (clubObservers != null) {
-            System.out.println("addClubMember(): Inform obsevers about new club member.");
-            notifyObservers();            
+            System.out.println("addClubMember(): "
+                    + "Inform obsevers about new club member.");
+            notifyObservers();
         } else {
             System.out.println("addClubMember(): No observers found.");
         }
@@ -266,5 +267,14 @@ public class Club implements ClubBehavior {
      */
     public final List<ClubMember> getClubMembers() {
         return clubMembers;
+    }
+
+    /**
+     * Return the list of all club observers.
+     * This method is currently only needed for unit tests.
+     * @return clubObservers list of all club observers
+     */
+    public final List<ClubObserver> returnClubObservers() {
+        return clubObservers;
     }
 }

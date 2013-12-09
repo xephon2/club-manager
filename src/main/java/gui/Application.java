@@ -168,12 +168,13 @@ public class Application {
      * arbitrary table cell.
      * @param tableCellEvent the cell change event
      */
-    private void handleTableCellEvent(TableModelEvent tableCellEvent) {
+    private void handleTableCellEvent(final TableModelEvent tableCellEvent) {
         System.out.println("handleTableCellEvent()");
         int rowIndexOfChangedCell = tableCellEvent.getFirstRow();
         int columnIndexOfChangedCell = tableCellEvent.getColumn();
         System.out.println("The cell in row(" + rowIndexOfChangedCell + ") "
-                + ", column(" + columnIndexOfChangedCell + ") has been changed.");
+                + ", column(" + columnIndexOfChangedCell
+                + ") has been changed.");
 
         /* If the changed cell is in the first column
          * (club member ID), create a new club member. */

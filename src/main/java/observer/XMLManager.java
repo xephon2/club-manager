@@ -2,6 +2,8 @@ package main.java.observer;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -27,6 +29,8 @@ import main.java.club.ClubMember;
 import main.java.club.ClubMemberProperties;
 import main.java.runtime.RuntimeManager;
 
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -215,8 +219,17 @@ public class XMLManager implements ClubObserver {
     public final void addXMLClubMember(final ClubMember clubMember) {
         System.out.println("addXMLClubMember()");
 
+        
+        
         try {
             Document doc = getXmlDocument(xmlFilename);
+            OutputFormat format = new OutputFormat(doc);
+            format.setLineWidth(65);
+            format.setIndenting(true);
+            format.setIndent(2);
+            Writer out = new StringWriter();
+            XMLSerializer serializer = new XMLSerializer(out, format);
+            serializer.serialize(doc);
 
             if (doc != null && clubMember != null) {
                 Node root = doc.getFirstChild();
@@ -235,7 +248,10 @@ public class XMLManager implements ClubObserver {
             System.out.println("XMLManager has added a new club member!");
             } catch (TransformerException e) {
                     e.printStackTrace();
-        }
+        } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
     }
 
     /**
@@ -364,12 +380,14 @@ public class XMLManager implements ClubObserver {
 
             return xmlClubMember;
         } else {
-            if (clubMember == null)
+            if (clubMember == null) {
                 System.out.println("createClubMemberElement(): "
                         + "clubMember is null");
-            if (doc == null)
+            }
+            if (doc == null) {
                 System.out.println("createClubMemberElement(): "
                         + "doc is null");
+            }
             return null;
         }
     }
@@ -494,6 +512,37 @@ public class XMLManager implements ClubObserver {
             e.printStackTrace();
         }
     }
+
+
+//    /**
+//     * Add a new club member to the file.
+//     * @param clubMember club member
+//     */
+//    public final void addXMLClubMember(final ClubMember clubMember) {
+//        System.out.println("addXMLClubMember()");
+//    
+//        try {
+//            Document doc = getXmlDocument(xmlFilename);
+//    
+//            if (doc != null && clubMember != null) {
+//                Node root = doc.getFirstChild();
+//    
+//                Element newClubMemberElement =
+//                        createClubMemberElement(doc, clubMember);
+//                root.appendChild(newClubMemberElement);
+//    
+//                TransformerFactory transformerFactory
+//                = TransformerFactory.newInstance();
+//                Transformer transformer = transformerFactory.newTransformer();
+//                DOMSource source = new DOMSource(doc);
+//                StreamResult result = new StreamResult(new File(xmlFilename));
+//                transformer.transform(source, result);                        
+//            }
+//            System.out.println("XMLManager has added a new club member!");
+//            } catch (TransformerException e) {
+//                    e.printStackTrace();
+//        }
+//    }
 }
 
 //package ecb.sdw.pretty;
