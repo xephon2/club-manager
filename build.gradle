@@ -5,10 +5,10 @@ import org.ajoberstar.gradle.git.tasks.*
 apply plugin: 'java'
 
 // I do not know for what this plugin is used
-apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
 
 // Apply the Github pages plugin
-apply plugin: 'github-pages'
+// apply plugin: 'github-pages'
 
 // Apply the Checkstyle plugin
 // apply plugin: 'checkstyle'
@@ -16,7 +16,14 @@ apply plugin: 'github-pages'
 // Apply the Findbugs plugin to find bugs in pre-commits
 // apply plugin: 'findbugs'
 
-version='0.1-ALPHA'
+sourceCompatibility = 1.7
+version = '0.1'
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Club Manager', 'Implementation-Version': version
+    }
+}
 
 sourceSets {
     main {
@@ -28,7 +35,8 @@ task setupClubManager
 
 defaultTasks 'ant.antCompile', 'ant.createJavadoc'
 
-buildscript {    
+// buildscript {
+allprojects {
     repositories {
         // Use 'maven central' for resolving your dependencies.
         mavenCentral()
@@ -36,7 +44,11 @@ buildscript {
 
     dependencies {
         // Use the Git plugin for Gradle
-        classpath 'org.ajoberstar:gradle-git:0.6.3'
+        // classpath 'org.ajoberstar:gradle-git:0.6.3'
+        
+        // Use JUnit for testing,
+        testCompile group: 'junit', name: 'junit', version: '4.+'
+        // testCompile 'junit:junit:4.11'
     }
 }
 
@@ -48,26 +60,26 @@ task myJavadocs(type: Javadoc) {
 // Import ANT tasks
 ant.importBuild 'build.xml'
 
-task (setupDitaOt, dependsOn: setupClubManager, type: GitClone) {
-    def folder = new File( 'repositories/dita-ot' )
-    if(!folder.exists()) {
-        println 'DITA-OT is not available. Clone DITA-OT from GitHub...'
-        setUri("http://remote.repository/")
-        setDestinationPath("repositories/dita-ot")
-        cloneRepo()
-    } else {
-        println 'DITA-OT is available, do nothing'
-    }
-}
-
-task (cloneUmlGraph, dependsOn: setupClubManager, type: GitClone) {
-    def folder = new File('repositories/uml-graph')
-    if(!folder.exists()) {
-        println 'uml-graph is not available. Clone uml-graph from GitHub...'
-        destinationPath = 'repositories/uml-graph'
-        uri = 'https://github.com/dspinellis/UMLGraph.git'
-    } else {
-        println 'uml-graph is available, do nothing'
-    }
-}
+//task (setupDitaOt, dependsOn: setupClubManager, type: GitClone) {
+//    def folder = new File( 'repositories/dita-ot' )
+//    if(!folder.exists()) {
+//        println 'DITA-OT is not available. Clone DITA-OT from GitHub...'
+//        setUri("http://remote.repository/")
+//        setDestinationPath("repositories/dita-ot")
+//        cloneRepo()
+//    } else {
+//        println 'DITA-OT is available, do nothing'
+//    }
+//}
+//
+//task (cloneUmlGraph, dependsOn: setupClubManager, type: GitClone) {
+//    def folder = new File('repositories/uml-graph')
+//    if(!folder.exists()) {
+//        println 'uml-graph is not available. Clone uml-graph from GitHub...'
+//        destinationPath = 'repositories/uml-graph'
+//        uri = 'https://github.com/dspinellis/UMLGraph.git'
+//    } else {
+//        println 'uml-graph is available, do nothing'
+//    }
+//}
 
