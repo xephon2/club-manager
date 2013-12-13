@@ -52,7 +52,7 @@ allprojects {
     }
 }
 
-task myJavadocs(type: Javadoc) {
+task createJavadocs(type: Javadoc) {
     source = sourceSets.main.allJava
 }
 

@@ -2,13 +2,13 @@ package main.java.observer;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.StringReader;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -17,6 +17,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -29,8 +30,6 @@ import main.java.club.ClubMember;
 import main.java.club.ClubMemberProperties;
 import main.java.runtime.RuntimeManager;
 
-import org.apache.xml.serialize.OutputFormat;
-import org.apache.xml.serialize.XMLSerializer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -101,6 +100,9 @@ public class XMLManager implements ClubObserver {
     /** Set the element name containing the club member's club. */
     private final String clubElementName = "club";
 
+    /** Set the indentation space in XML files. */
+    private Object INDENT_SPACES = 4;
+
 
     /* *****************************************
      * Constructor
@@ -134,7 +136,7 @@ public class XMLManager implements ClubObserver {
 
     /**
      * Create a new XML file and return an instance of Document.
-     * @return 
+     * @return the document
      */
     public final Document createXMLDocument() {
         System.out.println("createXMLDocument");
@@ -151,7 +153,12 @@ public class XMLManager implements ClubObserver {
             TransformerFactory transformerFactory
             = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
+
+            transformer.setOutputProperty(OutputKeys.INDENT,
+                    "yes"); // Indent the XML output
+
             DOMSource source = new DOMSource(document);
+
             StreamResult result = new StreamResult(new File(xmlFilename));
 
             transformer.transform(source, result);
@@ -194,7 +201,7 @@ public class XMLManager implements ClubObserver {
      * @param filename name of the XML file
      * @return the Document instance
      */
-    private final Document getXmlDocument(String filename) {
+    private Document getXmlDocument(final String filename) {
         try {
             DocumentBuilderFactory domFactory
                     = DocumentBuilderFactory.newInstance();
@@ -219,17 +226,8 @@ public class XMLManager implements ClubObserver {
     public final void addXMLClubMember(final ClubMember clubMember) {
         System.out.println("addXMLClubMember()");
 
-        
-        
         try {
             Document doc = getXmlDocument(xmlFilename);
-            OutputFormat format = new OutputFormat(doc);
-            format.setLineWidth(65);
-            format.setIndenting(true);
-            format.setIndent(2);
-            Writer out = new StringWriter();
-            XMLSerializer serializer = new XMLSerializer(out, format);
-            serializer.serialize(doc);
 
             if (doc != null && clubMember != null) {
                 Node root = doc.getFirstChild();
@@ -239,19 +237,22 @@ public class XMLManager implements ClubObserver {
                 root.appendChild(newClubMemberElement);
 
                 TransformerFactory transformerFactory
-                = TransformerFactory.newInstance();
+                        = TransformerFactory.newInstance();
+                transformerFactory.setAttribute("indent-number",
+                        INDENT_SPACES ); // FIXME This does not seem to work
+                                         // with DOMSources, but StreamSources
+
                 Transformer transformer = transformerFactory.newTransformer();
+                transformer.setOutputProperty(OutputKeys.
+                        INDENT, "yes"); // Indent the elements
                 DOMSource source = new DOMSource(doc);
                 StreamResult result = new StreamResult(new File(xmlFilename));
-                transformer.transform(source, result);                        
+                transformer.transform(source, result);
             }
             System.out.println("XMLManager has added a new club member!");
             } catch (TransformerException e) {
                     e.printStackTrace();
-        } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+        }
     }
 
     /**
@@ -512,114 +513,4 @@ public class XMLManager implements ClubObserver {
             e.printStackTrace();
         }
     }
-
-
-//    /**
-//     * Add a new club member to the file.
-//     * @param clubMember club member
-//     */
-//    public final void addXMLClubMember(final ClubMember clubMember) {
-//        System.out.println("addXMLClubMember()");
-//    
-//        try {
-//            Document doc = getXmlDocument(xmlFilename);
-//    
-//            if (doc != null && clubMember != null) {
-//                Node root = doc.getFirstChild();
-//    
-//                Element newClubMemberElement =
-//                        createClubMemberElement(doc, clubMember);
-//                root.appendChild(newClubMemberElement);
-//    
-//                TransformerFactory transformerFactory
-//                = TransformerFactory.newInstance();
-//                Transformer transformer = transformerFactory.newTransformer();
-//                DOMSource source = new DOMSource(doc);
-//                StreamResult result = new StreamResult(new File(xmlFilename));
-//                transformer.transform(source, result);                        
-//            }
-//            System.out.println("XMLManager has added a new club member!");
-//            } catch (TransformerException e) {
-//                    e.printStackTrace();
-//        }
-//    }
 }
-
-//package ecb.sdw.pretty;
-//
-//import org.apache.xml.serialize.OutputFormat;
-//import org.apache.xml.serialize.XMLSerializer;
-//import org.w3c.dom.Document;
-//import org.xml.sax.InputSource;
-//import org.xml.sax.SAXException;
-//
-//import javax.xml.parsers.DocumentBuilder;
-//import javax.xml.parsers.DocumentBuilderFactory;
-//import javax.xml.parsers.ParserConfigurationException;
-//import java.io.IOException;
-//import java.io.StringReader;
-//import java.io.StringWriter;
-//import java.io.Writer;
-//
-///**
-// * Pretty-prints xml, supplied as a string.
-// * <p/>
-// * eg.
-// * <code>
-// * String formattedXml = new XmlFormatter().format("<tag><nested>hello</nested></tag>");
-// * </code>
-// */
-//public class XmlFormatter {
-//
-//    public XmlFormatter() {
-//    }
-//
-//    public String format(String unformattedXml) {
-//        try {
-//            final Document document = parseXmlFile(unformattedXml);
-//
-//            OutputFormat format = new OutputFormat(document);
-//            format.setLineWidth(65);
-//            format.setIndenting(true);
-//            format.setIndent(2);
-//            Writer out = new StringWriter();
-//            XMLSerializer serializer = new XMLSerializer(out, format);
-//            serializer.serialize(document);
-//
-//            return out.toString();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    private Document parseXmlFile(String in) {
-//        try {
-//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-//            DocumentBuilder db = dbf.newDocumentBuilder();
-//            InputSource is = new InputSource(new StringReader(in));
-//            return db.parse(is);
-//        } catch (ParserConfigurationException e) {
-//            throw new RuntimeException(e);
-//        } catch (SAXException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    public static void main(String[] args) {
-//        String unformattedXml =
-//                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><QueryMessage\n" +
-//                        "        xmlns=\"http://www.SDMX.org/resources/SDMXML/schemas/v2_0/message\"\n" +
-//                        "        xmlns:query=\"http://www.SDMX.org/resources/SDMXML/schemas/v2_0/query\">\n" +
-//                        "    <Query>\n" +
-//                        "        <query:CategorySchemeWhere>\n" +
-//                        "   \t\t\t\t\t         <query:AgencyID>ECB\n\n\n\n</query:AgencyID>\n" +
-//                        "        </query:CategorySchemeWhere>\n" +
-//                        "    </Query>\n\n\n\n\n" +
-//                        "</QueryMessage>";
-//
-//        System.out.println(new XmlFormatter().format(unformattedXml));
-//    }
-//
-//}

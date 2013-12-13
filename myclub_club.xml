@@ -1,1 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><clubmembers><clubmember><id>333</id><firstname>dummy</firstname><lastname>dummy</lastname><username>dummy</username><password>829c3804401b0727f70f73d4415e162400cbe57b</password></clubmember></clubmembers>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clubmembers>
+<clubmember>
+<id>333</id>
+<firstname>dummy</firstname>
+<lastname>dummy</lastname>
+<username>dummy</username>
+<password>829c3804401b0727f70f73d4415e162400cbe57b</password>
+</clubmember>
+</clubmembers>

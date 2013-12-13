@@ -33,7 +33,7 @@ public class ClubMemberTest {
         assertEquals(null, clubMember1.getLastName());
         assertEquals(null, clubMember1.getUsername());
     }
-    
+
     /**
      * Test the club observer.
      * Create a new club, add an observer and add a new club member to the club.
