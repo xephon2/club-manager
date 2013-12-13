@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.java.observer.ClubObserver;
-import main.java.utility.Messages;
 
 /**
  * The club class implements the ClubObserverBehavior interface.
@@ -53,8 +52,6 @@ public class Club implements ClubBehavior {
         BANKIDCODE
     };
 
-    /** Get a singleton instance of the Messages object.*/
-    private Messages messages = Messages.getMessagesInstance();
 
     /* *****************************************
      * Constructor
@@ -105,12 +102,11 @@ public class Club implements ClubBehavior {
     public final void registerClubObserver(
             final ClubObserver clubObserver) {
         if (clubObserver == null) {
-            throw new NullPointerException(messages.getString("Messages.1"));
+            System.out.println("Observer cannot be registered.");
         }
         if (!clubObservers.contains(clubObserver)) {
             clubObservers.add(clubObserver);
         }
-        // System.out.println(Messages.getString("Messages.2") + clubObserver);
     }
 
     /**
@@ -252,10 +248,9 @@ public class Club implements ClubBehavior {
      */
     public final ClubMember getClubMemberByUserName(
             final String clubMemberUserName) {
-        for (ClubMember v : clubMembers) {
-            if (v.getUsername().equals(clubMemberUserName)) {
-                System.out.println(messages.getString("Club.6")); //$NON-NLS-1$
-                return v;
+        for (ClubMember clubMember : clubMembers) {
+            if (clubMember.getUsername().equals(clubMemberUserName)) {
+                return clubMember;
             }
         }
         return null;

@@ -1,10 +1,7 @@
 package test.java.club;
 
 import static org.junit.Assert.assertEquals;
-import main.java.club.Athlete;
-import main.java.club.Club;
 import main.java.club.ClubMember;
-import main.java.observer.ClubObserver;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,24 +30,4 @@ public class ClubMemberTest {
         assertEquals(null, clubMember1.getLastName());
         assertEquals(null, clubMember1.getUsername());
     }
-
-    /**
-     * Test the club observer.
-     * Create a new club, add an observer and add a new club member to the club.
-     */
-    @Test
-    public final void testClubObserver() {
-        Club testClub = new Club("Test Club");
-        assertEquals(true, testClub.returnClubObservers().isEmpty());
-        ClubObserver clubObserver = new ClubObserver() {
-            @Override
-            public void update() {
-                System.out.println("ClubObserver has been informed.");
-            }
-        };
-        testClub.registerClubObserver(clubObserver);
-        assertEquals(false, testClub.returnClubObservers().isEmpty());
-        testClub.addClubMember(new Athlete(123));
-    }
-
 }

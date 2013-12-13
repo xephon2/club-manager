@@ -1,6 +1,3 @@
-// Import gradle-git
-import org.ajoberstar.gradle.git.tasks.*
-
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
@@ -31,11 +28,9 @@ sourceSets {
     }
 }
 
-task setupClubManager
+// defaultTasks 'ant.antCompile', 'ant.createJavadoc'
 
-defaultTasks 'ant.antCompile', 'ant.createJavadoc'
 
-// buildscript {
 allprojects {
     repositories {
         // Use 'maven central' for resolving your dependencies.
@@ -43,34 +38,67 @@ allprojects {
     }
 
     dependencies {
-        // Use the Git plugin for Gradle
-        // classpath 'org.ajoberstar:gradle-git:0.6.3'
-        
         // Use JUnit for testing,
         testCompile group: 'junit', name: 'junit', version: '4.+'
         // testCompile 'junit:junit:4.11'
     }
 }
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.ajoberstar:gradle-git:0.6.3'
+    }
+}
+
+// Generate the javadoc
 task createJavadocs(type: Javadoc) {
     source = sourceSets.main.allJava
+}
+
+// Copy javadoc from to the doc directory
+task copyJavaDocumentation(type: Copy) {
+    from 'build/docs/javadoc'
+    into 'doc/javadoc'
+}
+
+// Superior task to assemble all docs at once
+task createDocumentation(dependsOn: ['createJavadocs', 'copyJavaDocumentation']) {
+    copyJavaDocumentation.mustRunAfter createJavadocs
 }
 
 
 // Import ANT tasks
 ant.importBuild 'build.xml'
 
-//task (setupDitaOt, dependsOn: setupClubManager, type: GitClone) {
+
+// Import gradle-git
+import org.ajoberstar.gradle.git.tasks.*
+
+
+// Clone the DITA-OT
+task cloneDitaOt (type: GitClone) {
+    
+    def destination = file("repositories/dita-ot")
+    uri = "https://github.com/dita-ot/dita-ot.git"
+    destinationPath = destination
+    bare = false
+    enabled = !destination.exists() //to clone only once
+}
+    
 //    def folder = new File( 'repositories/dita-ot' )
 //    if(!folder.exists()) {
 //        println 'DITA-OT is not available. Clone DITA-OT from GitHub...'
-//        setUri("http://remote.repository/")
+//        setUri("https://github.com/dita-ot/dita-ot.git")
 //        setDestinationPath("repositories/dita-ot")
 //        cloneRepo()
 //    } else {
 //        println 'DITA-OT is available, do nothing'
 //    }
 //}
+
 //
 //task (cloneUmlGraph, dependsOn: setupClubManager, type: GitClone) {
 //    def folder = new File('repositories/uml-graph')
