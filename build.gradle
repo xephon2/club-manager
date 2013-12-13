@@ -8,10 +8,10 @@ apply plugin: 'eclipse-wtp'
 // apply plugin: 'github-pages'
 
 // Apply the Checkstyle plugin
-// apply plugin: 'checkstyle'
+apply plugin: 'checkstyle'
 
 // Apply the Findbugs plugin to find bugs in pre-commits
-// apply plugin: 'findbugs'
+apply plugin: 'findbugs'
 
 sourceCompatibility = 1.7
 version = '0.1'
@@ -80,34 +80,13 @@ import org.ajoberstar.gradle.git.tasks.*
 
 // Clone the DITA-OT
 task cloneDitaOt (type: GitClone) {
-    
     def destination = file("repositories/dita-ot")
     uri = "https://github.com/dita-ot/dita-ot.git"
     destinationPath = destination
     bare = false
     enabled = !destination.exists() //to clone only once
 }
-    
-//    def folder = new File( 'repositories/dita-ot' )
-//    if(!folder.exists()) {
-//        println 'DITA-OT is not available. Clone DITA-OT from GitHub...'
-//        setUri("https://github.com/dita-ot/dita-ot.git")
-//        setDestinationPath("repositories/dita-ot")
-//        cloneRepo()
-//    } else {
-//        println 'DITA-OT is available, do nothing'
-//    }
-//}
 
-//
-//task (cloneUmlGraph, dependsOn: setupClubManager, type: GitClone) {
-//    def folder = new File('repositories/uml-graph')
-//    if(!folder.exists()) {
-//        println 'uml-graph is not available. Clone uml-graph from GitHub...'
-//        destinationPath = 'repositories/uml-graph'
-//        uri = 'https://github.com/dspinellis/UMLGraph.git'
-//    } else {
-//        println 'uml-graph is available, do nothing'
-//    }
-//}
 
+// Use Findbugs and CheckStyle.
+task quality (dependsOn: ['findbugsMain', 'checkstyleMain'])
