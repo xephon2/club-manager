@@ -89,4 +89,6 @@ task cloneDitaOt (type: GitClone) {
 
 
 // Use Findbugs and CheckStyle.
-task quality (dependsOn: ['findbugsMain', 'checkstyleMain'])
+// task quality (dependsOn: ['findbugsMain', 'checkstyleMain']) {
+//    ignoreFailures = true
+// }
