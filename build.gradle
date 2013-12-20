@@ -8,10 +8,10 @@ apply plugin: 'eclipse-wtp'
 // apply plugin: 'github-pages'
 
 // Apply the Checkstyle plugin
-apply plugin: 'checkstyle'
+// apply plugin: 'checkstyle'
 
 // Apply the Findbugs plugin to find bugs in pre-commits
-apply plugin: 'findbugs'
+// apply plugin: 'findbugs'
 
 sourceCompatibility = 1.7
 version = '0.1'

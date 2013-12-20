@@ -28,9 +28,9 @@ public class Club implements ClubBehavior {
 
     /** Stores all types of clubMemberProperties. */
     public enum clubMemberProperties {
-        /** The property type is the first name of the club member. */
+        /** First name of the club member. */
         FIRSTNAME,
-        /** The property type is the last name of the club member. */
+        /** Last name of the club member. */
         LASTNAME,
         /** The property type is the user name of the club member. */
         USERNAME,
