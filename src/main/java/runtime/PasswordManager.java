@@ -26,7 +26,19 @@ public class PasswordManager extends Properties {
     private static PasswordManager passwordManager = null;
 
     /** Stores theSHA value. */
-    private final byte SHA = 40;
+    private static final byte SHA = 40;
+
+    /** Store SHA hash constant. */
+    private static final int SHA_HASH_1 = 4;
+
+    /** Store SHA hash constant. */
+    private static final byte SHA_HASH_2 = 0x0F;
+
+    /** Store SHA hash constant. */
+    private static final int SHA_HASH_3 = 9;
+
+    /** Store SHA hash constant. */
+    private static final int SHA_HASH_4 = 10;
 
 
     /* *****************************************
@@ -116,17 +128,19 @@ public class PasswordManager extends Properties {
      * @return the String
      */
     private String convertToHex(final byte[] shaHash) {
+
         StringBuffer buf = new StringBuffer();
+
         for (int i = 0; i < shaHash.length; i++) {
-            int halfbyte = (shaHash[i] >>> 4) & 0x0F;
+            int halfbyte = (shaHash[i] >>> SHA_HASH_1) & SHA_HASH_2;
             int twoHalfs = 0;
             do {
-                if ((0 <= halfbyte) && (halfbyte <= 9)) {
+                if ((0 <= halfbyte) && (halfbyte <= SHA_HASH_3)) {
                     buf.append((char) ('0' + halfbyte));
                 } else {
-                    buf.append((char) ('a' + (halfbyte - 10)));
+                    buf.append((char) ('a' + (halfbyte - SHA_HASH_4)));
                 }
-                halfbyte = shaHash[i] & 0x0F;
+                halfbyte = shaHash[i] & SHA_HASH_2;
             } while(twoHalfs++ < 1);
         }
         return buf.toString();

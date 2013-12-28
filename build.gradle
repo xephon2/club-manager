@@ -41,6 +41,9 @@ allprojects {
         // Use JUnit for testing,
         testCompile group: 'junit', name: 'junit', version: '4.+'
         // testCompile 'junit:junit:4.11'
+		
+		// Use the Google Guava libraries
+		compile group: 'com.google.guava', name: 'guava', version: '15.0'
     }
 }
 
@@ -87,8 +90,11 @@ task cloneDitaOt (type: GitClone) {
     enabled = !destination.exists() //to clone only once
 }
 
-
-// Use Findbugs and CheckStyle.
+/**
+ * Enable this task to use FindBugs and CheckStyle in the "check" task.
+ * Because the project usually contains some minor style issues, this
+ * task should be disabled by default.
+ */
 // task quality (dependsOn: ['findbugsMain', 'checkstyleMain']) {
 //    ignoreFailures = true
 // }

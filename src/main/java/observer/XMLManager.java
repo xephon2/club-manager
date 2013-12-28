@@ -23,12 +23,10 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import main.java.club.Address;
 import main.java.club.BankAccount;
 import main.java.club.Club;
 import main.java.club.ClubMember;
 import main.java.club.ClubMemberProperties;
-import main.java.club.Club.clubMemberProperties;
 import main.java.runtime.RuntimeManager;
 
 import org.w3c.dom.Document;
@@ -61,10 +59,10 @@ public class XMLManager implements ClubObserver {
     private String rootelement;
 
     /** Set the indentation space in XML files. */
-    private Object INDENT_SPACES = 4;
+    private static final int INDENT_SPACES = 4;
 
     /** Store the names of all available XML elements. */
-    Map<String,String> xmlElements = new HashMap<String,String>();
+    private Map<String, String> xmlElements = new HashMap<String, String>();
 
 
     /* *****************************************
@@ -96,11 +94,14 @@ public class XMLManager implements ClubObserver {
         xmlElements.put("ACCOUNTNUMBER", new String("accountnumber"));
         xmlElements.put("BANKIDCODE", new String("bankidcode"));
         xmlElements.put("CLUB", new String("club"));
-        
+
         File f = new File(xmlFilePath);
         if (f.exists()) { // Check if the XML file exists
             System.out.println("File exists");
-            this.xmlDocument = loadXMLDocument(); // Load the XML document
+            loadXMLDocument(); // Load the XML document
+
+            // Load all club members from a XML file and return a Club
+            loadXMLClub();
         } else {
             this.xmlDocument = createXMLDocument(); // Create a new XML document
         }
@@ -156,17 +157,8 @@ public class XMLManager implements ClubObserver {
      * @return TRUE, if the club member is stored in the file
      */
     public final boolean isClubMemberInFile(final ClubMember clubMember) {
-        if (xmlDocument == null) { // Check if document is already loaded
-            System.out.println("isClubMemberInFile: xmlDocument is null");
 
-            Document loadedDocument = loadXMLDocument(); // Try to load document
-            if (loadedDocument != null) { // Set document
-                xmlDocument = loadedDocument;
-            }
-        }
-        if (xmlDocument == null) {
-            System.out.println("isClubMemberInFile: xmlDocument is STILL NULL");
-        }
+        loadXMLDocument(); // Make sure the XML document is loaded.
 
         // Create a XPath pointing to the name of the Club Member
         XPath xPath =  XPathFactory.newInstance().newXPath();
@@ -178,7 +170,7 @@ public class XMLManager implements ClubObserver {
         NodeList clubMemberList = null;
         try {
             clubMemberList = (NodeList) xPath.compile(expression).
-                    evaluate(xmlDocument, XPathConstants.NODESET);
+                    evaluate(this.xmlDocument, XPathConstants.NODESET);
             System.out.println("tried successfully");
 
             // If the list is greater than 0, the club member exists
@@ -195,6 +187,8 @@ public class XMLManager implements ClubObserver {
      * @param clubMember club member
      */
     public final void addXMLClubMember(final ClubMember clubMember) {
+
+        loadXMLDocument();
         if (xmlDocument == null) {
             System.out.println("addXMLClubMember: xmlDocument is null");
         }
@@ -251,7 +245,6 @@ public class XMLManager implements ClubObserver {
 
     /**
      * Create XML element of a club member.
-     * @param doc the XML document
      * @param clubMember the club member
      * @return the new XML club member element
      */
@@ -353,43 +346,83 @@ public class XMLManager implements ClubObserver {
         }
     }
 
-
-    private Node createNewXmlElement(String xmlElementName, String clubMemberPropertyValue) {
-
-        if (clubMemberPropertyValue == null) {
-            clubMemberPropertyValue = "";
-        }
-
-        Element xmlElement;
-        xmlElement = xmlDocument.createElement(xmlElementName);
-        xmlElement.appendChild(xmlDocument.createTextNode(clubMemberPropertyValue));
-        return xmlElement;
-    }
-
     /**
-     * Load a created XML file and return true on success.
+     * Create a new XML element.
+     * @param xmlElementName the name of the element
+     * @param clubMemberPropertyValue the value of the new element
+     * @return the element with its value
      */
-    public final Document loadXMLDocument() {
-        System.out.println("Load XML document ...");
-        try {
-            File xmlFile = new File(xmlFilePath);
+    private Node createNewXmlElement(
+            final String xmlElementName,
+            final String clubMemberPropertyValue) {
 
-            // Check if the XML file exists.
-            if (xmlFile.exists()) {
-                DocumentBuilderFactory dbFactory
-                    = DocumentBuilderFactory.newInstance();
-                dbFactory.setIgnoringComments(true);
-                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-                return dBuilder.parse(xmlFile);
-            } else {
-                System.out.println("loadXMLDocument() failed ...");
-            }
-        } catch (SAXException | IOException | ParserConfigurationException e) {
-            e.printStackTrace();
+        if (!(clubMemberPropertyValue == null)) {
+            Element xmlElement;
+            xmlElement = xmlDocument.createElement(xmlElementName);
+            xmlElement.appendChild(xmlDocument.
+                    createTextNode(clubMemberPropertyValue));
+            return xmlElement;
         }
         return null;
     }
 
+    /**
+     * Return the loaded XML document. If none has been loaded yet,
+     * load the document from the given xmlFilePath.
+     *
+     * @return the loaded document
+     */
+    public final boolean loadXMLDocument() {
+        System.out.println("Load XML document ...");
+
+        if (this.xmlDocument == null) {
+            try {
+                File xmlFile = new File(xmlFilePath);
+
+                // Check if the XML file exists.
+                if (xmlFile.exists()) {
+                    DocumentBuilderFactory dbFactory
+                        = DocumentBuilderFactory.newInstance();
+                    dbFactory.setIgnoringComments(true);
+                    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                    this.xmlDocument = dBuilder.
+                            parse(xmlFile); // Set the loaded XML document
+                } else {
+                    System.out.println("loadXMLDocument() failed ...");
+                }
+            } catch (SAXException | IOException |
+                    ParserConfigurationException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Load the club members from the XML file and return a Club.
+     * @return The Club that has been loaded from the given XML file.
+     */
+    public final Club loadXMLClub() {
+
+        System.out.println("loadXMLClub()");
+        loadXMLDocument(); // Make sure the XML document is loaded.
+
+        // Create a XPath pointing to the name of the Club Member
+        XPath xPath =  XPathFactory.newInstance().newXPath();
+        String expression = "//clubmember";
+
+        // Create a NodeList for the club member
+        NodeList clubMemberList = null;
+        try {
+            clubMemberList = (NodeList) xPath.compile(expression).
+                    evaluate(xmlDocument, XPathConstants.NODESET);
+            System.out.println("'" + clubMemberList.getLength()
+                    + "' club members loaded.");
+        } catch (XPathExpressionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 //    /**
 //     * Return the name of the club XML file.
@@ -479,7 +512,8 @@ public class XMLManager implements ClubObserver {
         }
         if (myNodeList.item(0) != null) {
             myNodeList.item(0).setNodeValue("Hi!");
-            System.out.println("changeXMLClubMember: hi: " + myNodeList.item(0).getNodeValue());
+            System.out.println("changeXMLClubMember: hi: "
+            + myNodeList.item(0).getNodeValue());
         }
 
         File file = new File(xmlFilePath);

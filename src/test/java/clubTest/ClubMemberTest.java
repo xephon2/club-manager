@@ -1,4 +1,4 @@
-package test.java.club;
+package test.java.clubTest;
 
 import static org.junit.Assert.assertEquals;
 import main.java.club.ClubMember;

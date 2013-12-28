@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import main.java.runtime.RuntimeManager;
 import main.java.utility.Messages;
 
 /**
@@ -37,7 +38,7 @@ public class Login extends JFrame {
     private JTextField passwordTextField;
 
     /** Stores the RuntimeManager. */
-    private main.java.runtime.RuntimeManager runtimeManager;
+    private RuntimeManager runtimeManager;
 
     /** Stores the x-coordinate of the application. */
     private final int xApplicationPosition = 100;
@@ -85,7 +86,7 @@ public class Login extends JFrame {
      * Create the application.
      * @param loginRuntimeManager RuntimeManager
      */
-    public Login(final main.java.runtime.RuntimeManager loginRuntimeManager) {
+    public Login(final RuntimeManager loginRuntimeManager) {
         this.runtimeManager = loginRuntimeManager;
         initialize();
     }

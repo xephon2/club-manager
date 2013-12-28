@@ -10,7 +10,7 @@ import main.java.observer.ClubObserver;
  * the clubObservers List.
  * @author Stefan Eike (s.eike85@gmail.com)
  */
-public class Club implements ClubBehavior {
+public class Club {
 
     /* *****************************************
      * Class variables.
@@ -114,7 +114,7 @@ public class Club implements ClubBehavior {
      * @param clubObserver club observer
      */
     public final void unregisterClubObserver(
-            final main.java.observer.ClubObserver clubObserver) {
+            final ClubObserver clubObserver) {
         clubObservers.remove(clubObserver);
     }
 
@@ -199,7 +199,7 @@ public class Club implements ClubBehavior {
      * Notify all observers that are registered at the clubObservers list.
      */
     public final void notifyObservers() {
-        for (main.java.observer.ClubObserver clubObserver : clubObservers) {
+        for (ClubObserver clubObserver : clubObservers) {
             System.out.println("The observer '" + clubObserver
                     + "' has been informed.");
             clubObserver.update();
@@ -269,7 +269,7 @@ public class Club implements ClubBehavior {
      * This method is currently only needed for unit tests.
      * @return clubObservers list of all club observers
      */
-    public final List<ClubObserver> returnClubObservers() {
+    public final List<ClubObserver> getObservers() {
         return clubObservers;
     }
 }

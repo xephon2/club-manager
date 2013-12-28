@@ -205,7 +205,7 @@ public class Application {
                         columnIndexOfChangedCell   // column-index
                         );
 
-                runtimeManager.getClub().
+                this.runtimeManager.getClub().
                     addOrChangeClubMemberProperties(
                         tableClubMemberId,
                         propertyType,

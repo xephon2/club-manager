@@ -118,7 +118,7 @@ public class RuntimeManager implements ClubObserver {
         // Get singleton instance of the PasswordManager.
         PasswordManager passwordManager;
         passwordManager = PasswordManager.getPasswordManagerInstance();
-        
+
         // Hash the password
         String hashedEnteredPassword;
         hashedEnteredPassword = passwordManager.hashPassword(enteredPassword);
@@ -126,7 +126,8 @@ public class RuntimeManager implements ClubObserver {
         if (hashedEnteredPassword.equals(hashedEstimatedPassword)) {
             return true;
         } else {
-            System.out.println("user '" + username + "' has entered a wrong password.");
+            System.out.println("user '" + username
+                    + "' has entered a wrong password.");
             return false;
         }
     }

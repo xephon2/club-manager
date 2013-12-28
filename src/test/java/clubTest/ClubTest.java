@@ -1,4 +1,4 @@
-package test.java.club;
+package test.java.clubTest;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,13 +6,18 @@ import java.util.List;
 
 import main.java.club.Club;
 import main.java.observer.ClubObserver;
+import main.java.observer.XMLManager;
+import main.java.runtime.RuntimeManager;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 /**
  * Test the Club class.
  * @author Stefan Eike (s.eike85@gmail.com)
  */
+@RunWith(JUnit4.class)
 public class ClubTest {
 
     /**
@@ -31,15 +36,14 @@ public class ClubTest {
      */
     @Test
     public final void testClubObserver() {
-        Club testClub2 = new Club("Test Club");
-        ClubObserver clubObserver = new ClubObserver() {
-            @Override
-            public void update() {
-                System.out.println("ClubObserver has been informed.");
-            }
-        };
-        testClub2.registerClubObserver(clubObserver);
-        List<ClubObserver> e = testClub2.returnClubObservers();
-        assertEquals(clubObserver, e.get(0));
+
+        Club testClub = new Club("Test Club");
+        RuntimeManager runtimeManger = new RuntimeManager();
+        runtimeManger.setClub(testClub);
+        XMLManager xmlManager = new XMLManager(runtimeManger, "clubmembers");
+
+        testClub.registerClubObserver(xmlManager);
+        List<ClubObserver> clubObservers = testClub.getObservers();
+        assertEquals(xmlManager, clubObservers.get(0));
     }
 }

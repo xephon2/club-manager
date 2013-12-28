@@ -37,12 +37,14 @@ public class Main {
     ParserConfigurationException, SAXException, IOException {
 
         runtimeManager = RuntimeManager.getRuntimeManagerInstance();
-        Club club = new Club("myclub");
+        // Club club = new Club("myclub");
 
-        runtimeManager.setClub(club);
+        // runtimeManager.setClub(club);
 
         XMLManager xman = new XMLManager(runtimeManager, "clubmembers");
         TableManager tman = new TableManager();
+
+        Club club = xman.loadXMLClub();
 
         if (xman != null) {
             System.out.println("XMLManager established.");
@@ -55,6 +57,7 @@ public class Main {
             club.registerClubObserver(tman);
             tman.update();
         }
+
 
         ClubMember dummy = new Athlete(333);
         dummy.setUsername("dummy");
