@@ -3,6 +3,7 @@
 	<name>ClubManager</name>
 	<comment></comment>
 	<projects>
+		<project>ClubManagerAspects</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -1,6 +1,6 @@
 #org.springsource.ide.eclipse.gradle.core.preferences.GradleProjectPreferences
-#Sun Dec 22 18:03:00 CET 2013
-org.springsource.ide.eclipse.gradle.classpath.enableSorting=true
+#Mon Dec 30 23:30:04 CET 2013
+org.springsource.ide.eclipse.gradle.classpath.enableSorting=false
 org.springsource.ide.eclipse.gradle.classpath.jar.remap.gradle.to.maven=true
 org.springsource.ide.eclipse.gradle.linkedresources=
 org.springsource.ide.eclipse.gradle.rootprojectloc=

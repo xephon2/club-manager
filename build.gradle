@@ -67,6 +67,12 @@ task copyJavaDocumentation(type: Copy) {
     into 'doc/javadoc'
 }
 
+// Create Java JAR and copy it to the ~/jar directory
+task createClubManagerJar(type: Copy, dependsOn: jar) {
+    from 'build/libs'
+    into 'jar'
+}
+
 // Superior task to assemble all docs at once
 task createDocumentation(dependsOn: ['createJavadocs', 'copyJavaDocumentation']) {
     copyJavaDocumentation.mustRunAfter createJavadocs
