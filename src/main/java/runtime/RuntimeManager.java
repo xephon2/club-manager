@@ -37,8 +37,26 @@ public class RuntimeManager implements ClubObserver {
 	 */
 
 	/**
+	 * Instantiate a RuntimeManger without
+	 * setting the mandatory club that is
+	 * used during runtime.
+	 */
+    public RuntimeManager() {
+    }
+
+    /**
+     * Instantiate a RuntimeManager and set the club
+     * that is used during runtime.
+     *
+     * @param club The club that is used.
+     */
+	public RuntimeManager(final Club club) {
+	    setClub(club);
+    }
+
+    /**
 	 * Sets an instance of VereinsMitglied as the logged in user.
-	 * 
+	 *
 	 * @param loggedInClubMember
 	 *            The instance of ClubMember of the logged in user.
 	 */
@@ -49,7 +67,7 @@ public class RuntimeManager implements ClubObserver {
 	/**
 	 * Set the club to be used in the RuntimeManager. Currently, the
 	 * RuntimeManager can handle only one club.
-	 * 
+	 *
 	 * @param runtimeManagerClub
 	 *            club
 	 */
@@ -59,7 +77,7 @@ public class RuntimeManager implements ClubObserver {
 
 	/**
 	 * Return the club of the runtime manager.
-	 * 
+	 *
 	 * @return club
 	 */
 	public final Club getClub() {
@@ -68,7 +86,7 @@ public class RuntimeManager implements ClubObserver {
 
 	/**
 	 * Return the password manager.
-	 * 
+	 *
 	 * @return PasswordManager
 	 */
 	public final PasswordManager getPasswordManager() {
@@ -80,10 +98,12 @@ public class RuntimeManager implements ClubObserver {
 	 */
 
 	/**
-	 * Instantiates RuntimeManager and returns the instance, if the constructor
-	 * is called twice or more. This method corresponds to the singleton
-	 * pattern.
-	 * 
+	 * Instantiates RuntimeManager and
+	 * returns the instance, if the constructor
+	 * is called twice or more.
+	 * This method corresponds to
+	 * the singleton pattern.
+	 *
 	 * @return Returns an instance of RuntimeManager.
 	 */
 	public static synchronized RuntimeManager getRuntimeManagerInstance() {
@@ -95,7 +115,7 @@ public class RuntimeManager implements ClubObserver {
 
 	/**
 	 * Returns the instance of VereinsMitglied of the logged in user.
-	 * 
+	 *
 	 * @return Returns logged in user
 	 */
 	public final ClubMember getLoggedInUser() {
@@ -104,7 +124,7 @@ public class RuntimeManager implements ClubObserver {
 
 	/**
 	 * Add a PasswordManager to the RuntimeManager.
-	 * 
+	 *
 	 * @param runtimePasswordManager
 	 *            A PasswordManager
 	 */
@@ -115,7 +135,7 @@ public class RuntimeManager implements ClubObserver {
 
 	/**
 	 * Check, if the user's password matches to the stored password hash.
-	 * 
+	 *
 	 * @param username
 	 *            The user name of the user
 	 * @param enteredPassword

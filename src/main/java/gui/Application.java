@@ -1,5 +1,19 @@
 package main.java.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
+
+import net.miginfocom.swing.MigLayout;
 import main.java.club.ClubMember;
 import main.java.club.Club.clubMemberProperties;
 import main.java.runtime.RuntimeManager;
@@ -114,8 +128,13 @@ public class Application {
 	 * Create the table for all club members.
 	 */
 	private void createClubTable() {
-		DefaultTableModel tableModel = new DefaultTableModel(new Object[] {
-				"Club Member ID", "First name", "Last Name", "User Name" },
+		DefaultTableModel tableModel = new DefaultTableModel(
+	            new Object[] {
+                    "Club Member ID",
+                    "First name",
+                    "Last Name",
+                    "User Name"
+                },
 				numberOfColumns);
 		table = new JTable(tableModel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -123,10 +142,15 @@ public class Application {
 		frame.setVisible(true);
 
 		int i = 0;
-		for (ClubMember clubMember : runtimeManager.getClub().getClubMembers()) {
+		for (ClubMember clubMember : runtimeManager
+		        .getClub()
+		        .getClubMembers()) {
 			tableModel.insertRow(i, new Object[] {
-					clubMember.getClubMemberId(), clubMember.getFirstName(),
-					clubMember.getLastName(), clubMember.getUsername() });
+				clubMember.getClubMemberId(),
+				clubMember.getFirstName(),
+				clubMember.getLastName(),
+				clubMember.getUsername()
+			});
 		}
 
 		tableModel.addTableModelListener(new TableModelListener() {
@@ -173,8 +197,10 @@ public class Application {
 		} else {
 
 			/*
-			 * If the changed cell is not in the first column (club member ID),
-			 * try to add or change the properties of an existing club member.
+			 * If the changed cell is not in the
+			 * first column (club member ID),
+			 * try to add or change the properties
+			 * of an existing club member.
 			 */
 			try {
 				int tableClubMemberId = convertStringToInt(getTableCellValue(
@@ -182,8 +208,9 @@ public class Application {
 
 				clubMemberProperties propertyType = getPropertyTypeFromColumnIndex(columnIndexOfChangedCell);
 
-				String propertyValue = getTableCellValue(rowIndexOfChangedCell, // row-index
-						columnIndexOfChangedCell // column-index
+				String propertyValue = getTableCellValue(
+			        rowIndexOfChangedCell, // row-index
+					columnIndexOfChangedCell // column-index
 				);
 
 				this.runtimeManager.getClub().addOrChangeClubMemberProperties(
@@ -198,7 +225,7 @@ public class Application {
 
 	/**
 	 * Get the value of a changed cell.
-	 * 
+	 *
 	 * @param rowIndex
 	 *            row index of the table
 	 * @param colIndex
@@ -213,7 +240,7 @@ public class Application {
 
 	/**
 	 * Set the value of a table cell.
-	 * 
+	 *
 	 * @param obj
 	 *            table cell
 	 * @param rowIndex
@@ -238,7 +265,7 @@ public class Application {
 
 	/**
 	 * Convert a String to an Integer.
-	 * 
+	 *
 	 * @param string
 	 *            input string
 	 * @return output integer
@@ -254,7 +281,7 @@ public class Application {
 
 	/**
 	 * Create a new clubMember, when the ID cell of the table is filled.
-	 * 
+	 *
 	 * @param clubMemberId
 	 *            clubMemberId from table cell
 	 */
@@ -271,7 +298,7 @@ public class Application {
 	 * Receive the index of a changed table column. Use the index to get the
 	 * property type of the column and return it as a clubMemberProperties
 	 * object.
-	 * 
+	 *
 	 * @param tableColumnIndex
 	 *            index of the changed table column
 	 * @return type of the changed property

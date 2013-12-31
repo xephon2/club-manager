@@ -1,5 +1,8 @@
 package main.java.utility;
 
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
 
 /**
  * This class reads and returns the UI strings from the message bundle.
@@ -40,7 +43,7 @@ public final class Messages {
 	 * Instantiates RuntimeManager and returns the instance, if the constructor
 	 * is called twice or more. This method corresponds to the singleton
 	 * pattern.
-	 * 
+	 *
 	 * @return Returns an instance of RuntimeManager.
 	 */
 	public static synchronized Messages getMessagesInstance() {
@@ -52,7 +55,7 @@ public final class Messages {
 
 	/**
 	 * Get a string from the ResourceBundle by its key and return it.
-	 * 
+	 *
 	 * @param key
 	 *            key of the string
 	 * @return the string

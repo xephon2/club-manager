@@ -1,5 +1,14 @@
 package main.java.runtime;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Properties;
+
 
 /**
  * The PasswordManager encrypts and decrypts passwords.
@@ -68,8 +77,15 @@ public class PasswordManager extends Properties {
 
 		setProperty(Integer.toString(clubMemberId), hashedPassword);
 		try {
-			storeToXML(new FileOutputStream(new File(runtimeManager.getClub()
-					.getClubName() + ".xml")), "nocomment");
+			storeToXML(
+		        new FileOutputStream(
+	                new File(runtimeManager
+                        .getClub()
+                        .getClubName()
+                        + ".xml")
+	                ),
+	                "nocomment"
+                );
 			return hashedPassword;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -79,10 +95,12 @@ public class PasswordManager extends Properties {
 	}
 
 	/**
-	 * Create a hash of a plain text password. This method is needed for storing
-	 * the encrypted password in the XML file and to retrieve the hashed
+	 * Create a hash of a plain text password.
+	 * This method is needed for storing
+	 * the encrypted password in the XML file
+	 * and to retrieve the hashed
 	 * password from the XML file.
-	 * 
+	 *
 	 * @param plainTextPassword
 	 *            plain text password
 	 * @return hash of the plain text password
@@ -96,7 +114,10 @@ public class PasswordManager extends Properties {
 					plainTextPassword.length());
 			shaHash = md.digest();
 			return convertToHex(shaHash);
-		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e1) {
+		} catch (
+		        NoSuchAlgorithmException |
+		        UnsupportedEncodingException e1
+		        ) {
 			e1.printStackTrace();
 		}
 		return null;
@@ -104,7 +125,7 @@ public class PasswordManager extends Properties {
 
 	/**
 	 * Load a hashed password from XML file.
-	 * 
+	 *
 	 * @param userName
 	 *            user name
 	 * @return hashed password
@@ -114,8 +135,12 @@ public class PasswordManager extends Properties {
 		RuntimeManager runtimeManager = RuntimeManager
 				.getRuntimeManagerInstance();
 		try {
-			loadFromXML(new FileInputStream(new File(runtimeManager.getClub()
-					.getClubName() + "_password.xml")));
+			loadFromXML(
+		        new FileInputStream(
+	                new File(
+                        runtimeManager.getClub()
+                        .getClubName()
+                        + "_password.xml")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -124,7 +149,7 @@ public class PasswordManager extends Properties {
 
 	/**
 	 * Convert a byte array to String and return it.
-	 * 
+	 *
 	 * @param shaHash
 	 *            the byte array
 	 * @return the String

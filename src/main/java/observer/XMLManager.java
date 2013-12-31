@@ -1,5 +1,34 @@
 package main.java.observer;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 import main.java.club.BankAccount;
 import main.java.club.Club;
 import main.java.club.ClubMember;
@@ -42,7 +71,7 @@ public class XMLManager implements ClubObserver {
 
 	/**
 	 * Create a new XMLManager object.
-	 * 
+	 *
 	 * @param xmlRuntimeManager
 	 *            RuntimeManager
 	 * @param rootElement
@@ -52,7 +81,10 @@ public class XMLManager implements ClubObserver {
 			final String rootElement) {
 		this.runtimeManager = xmlRuntimeManager;
 		this.rootelement = rootElement;
-		this.xmlFilePath = runtimeManager.getClub().getClubName() + "_club.xml";
+		this.xmlFilePath = runtimeManager
+		        .getClub()
+		        .getClubName()
+		        + "_club.xml";
 
 		xmlElements.put("CLUBMEMBER", new String("clubmember"));
 		xmlElements.put("ID", new String("id"));
@@ -74,7 +106,8 @@ public class XMLManager implements ClubObserver {
 			System.out.println("File exists");
 			loadXMLDocument(); // Load the XML document
 
-			// Load all club members from a XML file and return a Club
+			/* Load all club members from
+			 * a XML file and return a Club. */
 			loadXMLClub();
 		} else {
 			this.xmlDocument = createXMLDocument(); // Create a new XML document
@@ -88,40 +121,46 @@ public class XMLManager implements ClubObserver {
 
 	/**
 	 * Create a new XML file and return an instance of Document.
-	 * 
+	 *
 	 * @return the document
 	 */
 	public final Document createXMLDocument() {
 		System.out.println("createXMLDocument");
 		try {
-			DocumentBuilderFactory domFactory = DocumentBuilderFactory
-					.newInstance();
+			DocumentBuilderFactory domFactory =
+			        DocumentBuilderFactory.newInstance();
 			// domFactory.setIgnoringComments(true);
-			DocumentBuilder builder = domFactory.newDocumentBuilder();
+
+			DocumentBuilder builder =
+			        domFactory.newDocumentBuilder();
 			Document document = builder.newDocument();
 
-			Element rootElement = document.createElement(rootelement);
+			Element rootElement =
+			        document.createElement(rootelement);
 			document.appendChild(rootElement);
 
-			TransformerFactory transformerFactory = TransformerFactory
-					.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
+			TransformerFactory transformerFactory =
+			        TransformerFactory.newInstance();
+			Transformer transformer =
+			        transformerFactory.newTransformer();
 
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes"); // Indent
-																		// the
-																		// XML
-																		// output
+			/** Indent the XML output. */
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
 			DOMSource source = new DOMSource(document);
 
-			StreamResult result = new StreamResult(new File(xmlFilePath));
+			StreamResult result =
+			        new StreamResult(new File(xmlFilePath));
 
 			transformer.transform(source, result);
 
 			System.out.println("File saved!");
 
 			return document;
-		} catch (ParserConfigurationException | TransformerException e) {
+		} catch (
+		        ParserConfigurationException
+		        | TransformerException e
+		        ) {
 			e.printStackTrace();
 		}
 		return null;
@@ -129,7 +168,7 @@ public class XMLManager implements ClubObserver {
 
 	/**
 	 * Check if the club member is already stored in the file.
-	 * 
+	 *
 	 * @param clubMember
 	 *            club member
 	 * @return TRUE, if the club member is stored in the file
@@ -160,7 +199,7 @@ public class XMLManager implements ClubObserver {
 
 	/**
 	 * Add a new club member to the file.
-	 * 
+	 *
 	 * @param clubMember
 	 *            club member
 	 */
@@ -168,38 +207,50 @@ public class XMLManager implements ClubObserver {
 
 		loadXMLDocument();
 		if (xmlDocument == null) {
-			System.out.println("addXMLClubMember: xmlDocument is null");
+			System.out.println(
+			        "addXMLClubMember: xmlDocument is null"
+			        );
 		}
 
 		try {
 			if (xmlDocument != null && clubMember != null) {
 				Node root = xmlDocument.getFirstChild();
-				System.out.println("root: " + xmlDocument.getFirstChild());
+				System.out.println("root: "
+				        + xmlDocument.getFirstChild());
 
-				Element newClubMemberElement = createClubMemberElement(clubMember);
-				System.out.println("Element: " + newClubMemberElement);
+				Element newClubMemberElement =
+				        createClubMemberElement(clubMember);
+				System.out.println("Element: "
+				        + newClubMemberElement);
 				root.appendChild(newClubMemberElement);
 
-				TransformerFactory transformerFactory = TransformerFactory
-						.newInstance();
-				transformerFactory.setAttribute("indent-number", INDENT_SPACES); // FIXME
-																					// This
-																					// does
-																					// not
-																					// seem
-																					// to
-																					// work
-																					// with
-																					// DOMSources,
-																					// but
-																					// StreamSources
+				TransformerFactory transformerFactory =
+				        TransformerFactory.newInstance();
+				/*
+				 * FIXME
+				 * This does not seem to work with DOMSources,
+				 * but StreamSources.
+				 */
+				transformerFactory.setAttribute(
+				        "indent-number",
+				        INDENT_SPACES
+				        );
 
-				Transformer transformer = transformerFactory.newTransformer();
-				transformer.setOutputProperty(OutputKeys.INDENT, "yes"); // Indent
-																			// the
-																			// elements
+				Transformer transformer =
+				        transformerFactory.newTransformer();
+
+				/*
+				 * Indent the elements.
+				 */
+				transformer.setOutputProperty(
+				        OutputKeys.INDENT,
+				        "yes"
+				        ); // Indent
+
 				DOMSource source = new DOMSource(xmlDocument);
-				StreamResult result = new StreamResult(new File(xmlFilePath));
+				StreamResult result = new StreamResult(
+				        new File(xmlFilePath)
+				        );
 
 				// System.out.println("xmlDocument: " + xmlDocument);
 				// loadXMLDocument();
@@ -223,7 +274,9 @@ public class XMLManager implements ClubObserver {
 
 				transformer.transform(source, result);
 			}
-			System.out.println("XMLManager has added a new club member!");
+			System.out.println(
+			        "XMLManager has added a new club member!"
+			        );
 		} catch (TransformerException e) {
 			e.printStackTrace();
 		}
@@ -231,7 +284,7 @@ public class XMLManager implements ClubObserver {
 
 	/**
 	 * Create XML element of a club member.
-	 * 
+	 *
 	 * @param clubMember
 	 *            the club member
 	 * @return the new XML club member element
@@ -244,45 +297,81 @@ public class XMLManager implements ClubObserver {
 			xmlClubMember = xmlDocument.createElement(xmlElements
 					.get("CLUBMEMBER"));
 
-			xmlClubMember.appendChild(createNewXmlElement(
-					xmlElements.get("ID"),
-					Integer.toString(clubMember.getClubMemberId())));
+			xmlClubMember.appendChild(
+		        createNewXmlElement(xmlElements.get("ID"),
+        			Integer.toString(
+        			        clubMember.getClubMemberId()
+        	        )
+				)
+			);
 
-			xmlClubMember.appendChild(createNewXmlElement(
-					xmlElements.get("FIRSTNAME"), clubMember.getFirstName()));
+			xmlClubMember.appendChild(
+		        createNewXmlElement(xmlElements.get("FIRSTNAME"),
+	                clubMember.getFirstName()
+                )
+            );
 
-			xmlClubMember.appendChild(createNewXmlElement(
-					xmlElements.get("LASTNAME"), clubMember.getLastName()));
+			xmlClubMember.appendChild(
+		        createNewXmlElement(xmlElements.get("LASTNAME"),
+	                clubMember.getLastName()
+                )
+            );
 
-			xmlClubMember.appendChild(createNewXmlElement(
-					xmlElements.get("LASTNAME"), clubMember.getLastName()));
+			xmlClubMember.appendChild(
+		        createNewXmlElement(
+        			xmlElements.get("LASTNAME"),
+        			clubMember.getLastName()
+				)
+			);
 
-			xmlClubMember.appendChild(createNewXmlElement(
-					xmlElements.get("USERNAME"), clubMember.getLastName()));
+			xmlClubMember.appendChild(
+		        createNewXmlElement(
+					xmlElements.get("USERNAME"),
+					clubMember.getLastName()
+				)
+			);
 
-			xmlClubMember
-					.appendChild(createNewXmlElement(
-							xmlElements.get("PASSWORD"),
-							clubMember.getHashedPassword()));
+			xmlClubMember.appendChild(
+		        createNewXmlElement(
+	                xmlElements.get("PASSWORD"),
+	                clubMember.getHashedPassword()
+                )
+            );
 
 			// Create the address
 			if (clubMember.getAddress() != null) {
 
-				xmlClubMember.appendChild(createNewXmlElement(xmlElements
-						.get("STREET"), clubMember.getAddress().getStreet()));
+				xmlClubMember.appendChild(
+			        createNewXmlElement(
+		                xmlElements.get("STREET"),
+		                clubMember.getAddress().getStreet()
+	                )
+                );
 
-				xmlClubMember.appendChild(createNewXmlElement(xmlElements
-						.get("HOUSENUMBER"), Integer.toString(clubMember
-						.getAddress().getHouseNumber())));
+				xmlClubMember.appendChild(
+			        createNewXmlElement(
+		                xmlElements.get("HOUSENUMBER"),
+		                Integer.toString(
+	                        clubMember.getAddress().getHouseNumber()
+                        )
+                    )
+                );
 
-				xmlClubMember
-						.appendChild(createNewXmlElement(
-								xmlElements.get("ZIP"), Integer
-										.toString(clubMember.getAddress()
-												.getZipCode())));
+				xmlClubMember.appendChild(
+			        createNewXmlElement(
+		                xmlElements.get("ZIP"),
+		                Integer.toString(
+	                        clubMember.getAddress().getZipCode()
+                        )
+                    )
+                );
 
-				xmlClubMember.appendChild(createNewXmlElement(xmlElements
-						.get("CITY"), clubMember.getAddress().getCity()));
+				xmlClubMember.appendChild(
+			        createNewXmlElement(
+		                xmlElements.get("CITY"),
+		                clubMember.getAddress().getCity()
+	                )
+                );
 			}
 
 			BankAccount clubMemberBankAccount;
@@ -290,27 +379,45 @@ public class XMLManager implements ClubObserver {
 
 			if (clubMemberBankAccount != null) {
 
-				xmlClubMember.appendChild(createNewXmlElement(
+				xmlClubMember.appendChild(
+			        createNewXmlElement(
 						xmlElements.get("BANK"),
-						clubMemberBankAccount.getBankName()));
+						clubMemberBankAccount.
+						    getBankName()
+					)
+				);
 
-				xmlClubMember.appendChild(createNewXmlElement(xmlElements
-						.get("ACCOUTNUMBER"), Integer
-						.toString(clubMemberBankAccount.getAccountNumber())));
+				xmlClubMember.appendChild(
+			        createNewXmlElement(
+		                xmlElements.get("ACCOUTNUMBER"),
+		                Integer.toString(
+	                        clubMemberBankAccount.
+	                            getAccountNumber()
+                        )
+                    )
+                );
 
-				xmlClubMember
-						.appendChild(createNewXmlElement(xmlElements
-								.get("BANKIDCODE"),
-								Integer.toString(clubMemberBankAccount
-										.getBankIdCode())));
+				xmlClubMember.appendChild(
+			        createNewXmlElement(
+		                xmlElements.get("BANKIDCODE"),
+		                Integer.toString(
+	                        clubMemberBankAccount.
+	                            getBankIdCode()
+                        )
+                    )
+                );
 			}
 
 			Club club;
 			club = clubMember.getClub();
 
 			if (club != null) {
-				xmlClubMember.appendChild(createNewXmlElement(
-						xmlElements.get("CLUB"), club.getClubName()));
+				xmlClubMember.appendChild(
+			        createNewXmlElement(
+		                xmlElements.get("CLUB"),
+		                club.getClubName()
+	                )
+                );
 			}
 
 			return xmlClubMember;
@@ -329,7 +436,7 @@ public class XMLManager implements ClubObserver {
 
 	/**
 	 * Create a new XML element.
-	 * 
+	 *
 	 * @param xmlElementName
 	 *            the name of the element
 	 * @param clubMemberPropertyValue
@@ -342,8 +449,11 @@ public class XMLManager implements ClubObserver {
 		if (!(clubMemberPropertyValue == null)) {
 			Element xmlElement;
 			xmlElement = xmlDocument.createElement(xmlElementName);
-			xmlElement.appendChild(xmlDocument
-					.createTextNode(clubMemberPropertyValue));
+			xmlElement.appendChild(
+		        xmlDocument.createTextNode(
+	                clubMemberPropertyValue
+                )
+            );
 			return xmlElement;
 		}
 		return null;
@@ -352,7 +462,7 @@ public class XMLManager implements ClubObserver {
 	/**
 	 * Return the loaded XML document. If none has been loaded yet, load the
 	 * document from the given xmlFilePath.
-	 * 
+	 *
 	 * @return the loaded document
 	 */
 	public final boolean loadXMLDocument() {
@@ -364,17 +474,20 @@ public class XMLManager implements ClubObserver {
 
 				// Check if the XML file exists.
 				if (xmlFile.exists()) {
-					DocumentBuilderFactory dbFactory = DocumentBuilderFactory
-							.newInstance();
+					DocumentBuilderFactory dbFactory
+					    = DocumentBuilderFactory.newInstance();
 					dbFactory.setIgnoringComments(true);
 					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-					this.xmlDocument = dBuilder.parse(xmlFile); // Set the
-																// loaded XML
-																// document
+					
+					/** Set the loaded XML document. */
+					this.xmlDocument = dBuilder.parse(xmlFile);
 				} else {
 					System.out.println("loadXMLDocument() failed ...");
 				}
-			} catch (SAXException | IOException | ParserConfigurationException e) {
+			} catch (SAXException
+			        | IOException
+			        | ParserConfigurationException e
+			        ) {
 				e.printStackTrace();
 			}
 		}
@@ -383,7 +496,7 @@ public class XMLManager implements ClubObserver {
 
 	/**
 	 * Load the club members from the XML file and return a Club.
-	 * 
+	 *
 	 * @return The Club that has been loaded from the given XML file.
 	 */
 	public final Club loadXMLClub() {
@@ -398,7 +511,8 @@ public class XMLManager implements ClubObserver {
 		// Create a NodeList for the club member
 		NodeList clubMemberList = null;
 		try {
-			clubMemberList = (NodeList) xPath.compile(expression).evaluate(
+			clubMemberList = (NodeList) xPath.
+			        compile(expression).evaluate(
 					xmlDocument, XPathConstants.NODESET);
 			System.out.println("'" + clubMemberList.getLength()
 					+ "' club members loaded.");
@@ -423,8 +537,8 @@ public class XMLManager implements ClubObserver {
 	// }
 
 	/**
-	 * Observer Method - Update is called when new messages are consumed from
-	 * Subject.
+	 * Observer Method - Update is called when
+	 * new messages are consumed from Subject.
 	 */
 	public final void update() {
 		synchronizeAllClubMembers();
@@ -432,7 +546,8 @@ public class XMLManager implements ClubObserver {
 	}
 
 	/**
-	 * Compares all members of the club with all club members in the XML file.
+	 * Compares all members of the club
+     * with all club members in the XML file.
 	 * If properties of an XML entry are not equal to the club member
 	 * properties, overwrite the properties of the XML entry.
 	 */
@@ -441,12 +556,17 @@ public class XMLManager implements ClubObserver {
 		clubMembers = runtimeManager.getClub().getClubMembers();
 		for (ClubMember clubMember : clubMembers) {
 			if (!(isClubMemberInFile(clubMember))) {
-				System.out.println("club member '" + clubMember.getUsername()
-						+ "', '" + clubMember.getClubMemberId() + "'"
-						+ " is not in file. " + "Try to add him.");
+				System.out.println("club member '"
+				        + clubMember.getUsername()
+						+ "', '"
+				        + clubMember.getClubMemberId()
+						+ "'" + " is not in file. "
+						+ "Try to add him.");
 				addXMLClubMember(clubMember);
 			} else {
-				System.out.println("clubMember " + clubMember.getUsername()
+				System.out.println(
+				        "clubMember "
+		                + clubMember.getUsername()
 						+ " is in file.");
 			}
 		}
@@ -454,7 +574,7 @@ public class XMLManager implements ClubObserver {
 
 	/**
 	 * Get the club member XML entry and change a property value.
-	 * 
+	 *
 	 * @param clubMember
 	 *            the club member to be changed.
 	 * @param property
@@ -505,7 +625,10 @@ public class XMLManager implements ClubObserver {
 		try {
 			xformer = TransformerFactory.newInstance().newTransformer();
 			xformer.transform(source, result);
-		} catch (TransformerFactoryConfigurationError | TransformerException e) {
+		} catch (
+		        TransformerFactoryConfigurationError
+		        | TransformerException e
+		        ) {
 			e.printStackTrace();
 		}
 	}
