@@ -3,16 +3,10 @@
 	<name>ClubManager</name>
 	<comment></comment>
 	<projects>
-		<project>ClubManagerAspects</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
 			<name>org.eclipse.ajdt.core.ajbuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>net.sf.eclipsecs.core.CheckstyleBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -21,6 +15,5 @@
 		<nature>org.eclipse.ajdt.ui.ajnature</nature>
 		<nature>org.springsource.ide.eclipse.gradle.core.nature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
 	</natures>
 </projectDescription>

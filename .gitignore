@@ -13,3 +13,4 @@ temp/**
 .gradle/**
 testreport/TEST-ClubMemberTest.txt
 dita/dita-ot/**
+/build
