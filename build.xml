@@ -6,13 +6,14 @@
     <property name="build.dir" location="bin" description="Set the build directory."/>
     <property name="jar.dir" location="jar" description="Set the jar directory."/>
     <property name="test.dir" location="src" description="Set the test directory variable."/>
+    <property name="javadoc.dir" location="doc/javadoc" description="Javadoc directory"/>
     <property name="doc.dir" location="doc" description="Set the documentation directory variable."/>
     <property name="test.report.dir" location="testreport" description="Set the test report directory."/>
     <property name="dita.dir" location="dita/"/>
     <property name="dita.ot.dir" location="dita/dita-ot/"/>
     <property name="dita.out.dir" location="doc/ditadoc/" />
     <property name="dita.map" location="dita/club-manager.ditamap" />
-    <property name="lib.dir" value="lib"/>
+    <property name="lib.dir" value="lib/"/>
 
 
     <!--
@@ -100,7 +101,7 @@
     	    splitindex="true"
             use="true"
             version="true"
-            destdir="doc/javadoc">
+            destdir="${javadoc.dir}">
         </javadoc>
     </target>
 
@@ -110,6 +111,25 @@
 	    <property name="output.dir" value="../../doc/ditadoc"/>
 	    <property name="transtype" value="pdf"/>
         </ant>
+    </target>
+
+    <!-- Create UML diagrams using UmlGraph -->
+    <target name="uml" depends="compileJava">
+        <javadoc sourcepath="${src.dir}" packagenames="test,main.java.gui,main.java.club,main.java.runtime,main.java.observer,main.java.utility" destdir="${javadoc.dir}" 
+	         private="true">
+            <doclet name="org.umlgraph.doclet.UmlGraphDoc" path="${lib.dir}/UMLGraph.jar">
+                <param name="-inferrel"/>
+                <param name="-inferdep"/>
+                <param name="-hide" value="java.*"/>
+                <param name="-collpackages" value="java.util.*"/>
+                <param name="-qualify"/>
+                <param name="-postfixpackage"/>
+                <param name="-nodefontsize" value="9"/>
+                <param name="-nodefontpackagesize" value="7"/>
+                <param name="-link" value="http://java.sun.com/j2se/1.5.0/docs/guide/javadoc/doclet/spec"/>
+                <param name="-link" value="http://java.sun.com/j2se/1.5/docs/api"/>
+            </doclet>
+        </javadoc>
     </target>
 
 </project> 
